@@ -5,7 +5,8 @@ import {
   emailChanged, 
   passwordChanged, 
   signUpUser,
-  firstnameChanged
+  firstnameChanged,
+  lastnameChanged
    } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
@@ -24,6 +25,10 @@ class SignUpForm extends Component {
 
 	onFirstNameChange ( text ){
 		this.props.firstnameChanged(text);
+	}
+
+	onLastNameChange ( text ){
+		this.props.lastnameChanged(text);
 	}
 
 
@@ -80,6 +85,15 @@ class SignUpForm extends Component {
 					/>
 				</CardSection>
 
+				<CardSection>
+					<Input 
+						label = "Last Name"
+						placeholder = "Smith"
+						onChangeText = {this.onLastNameChange.bind(this)}
+						value = {this.props.lastname}
+					/>
+				</CardSection>
+
 				{this.renderError()}
 				<CardSection>
 				{this.renderButton()}
@@ -104,5 +118,5 @@ const mapStateToProps = ({auth}) => {
 };
 
 export default connect(mapStateToProps, {
-  emailChanged, passwordChanged, signUpUser, firstnameChanged
+  emailChanged, passwordChanged, signUpUser, firstnameChanged, lastnameChanged
 })(SignUpForm);

@@ -9,7 +9,8 @@ import {
 	SIGNUP_USER,
 	SIGNUP_USER_SUCCESS,
 	SIGNUP_USER_FAIL,
-	FIRST_NAME_CHANGED
+	FIRST_NAME_CHANGED,
+	LAST_NAME_CHANGED
 } from './types';
 
 export const emailChanged = (text) => {
@@ -30,6 +31,13 @@ export const firstnameChanged = (text) => {
 	return {
 		type: FIRST_NAME_CHANGED,
 		payload	: text
+	};
+};
+
+export const lastnameChanged = (text) => {
+	return {
+		type: LAST_NAME_CHANGED,
+		payload: text
 	};
 };
 export const signUpUser = ({ email, password}) => {

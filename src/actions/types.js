@@ -6,6 +6,7 @@ export const LOGIN_USER_FAIL = 'login_user_fail';
 export const LOGIN_USER = 'login_user';
 
 export const FIRST_NAME_CHANGED = 'first_name_changed';
+export const LAST_NAME_CHANGED = 'last_name_changed';
 
 export const SIGNUP_USER = 'signup_user';
 export const SIGNUP_USER_SUCCESS = 'signup_user_success';
