@@ -65,7 +65,7 @@ class LoginForm extends Component {
 				{this.renderButton()}
 				</CardSection>
 				<CardSection>
-					<Button onPress = {Actions.signUp}>
+					<Button onPress = {Actions.signUpRole}>
 						Sign Up
 					</Button>
 				</CardSection>

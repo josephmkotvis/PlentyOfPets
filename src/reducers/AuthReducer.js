@@ -4,11 +4,12 @@ import {
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_FAIL,
 	LOGIN_USER,
-	SIGNUP_USER,
-	SIGNUP_USER_SUCCESS,
-	SIGNUP_USER_FAIL,
+	UPDATE_USER,
+	UPDATE_USER_SUCCESS,
+	UPDATE_USER_FAIL,
 	FIRST_NAME_CHANGED,
-	LAST_NAME_CHANGED
+	LAST_NAME_CHANGED,
+	ROLE_UPDATE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -18,7 +19,8 @@ const INITIAL_STATE = {
  lastname: '',
  user: null,
  error: '',
- loading: false
+ loading: false,
+ role: '',
 };
 
 export default (state = INITIAL_STATE, action ) => {
@@ -32,18 +34,20 @@ export default (state = INITIAL_STATE, action ) => {
 			return { ...state, firstname: action.payload };
 		case LAST_NAME_CHANGED:
 			return { ...state, lastname: action.payload };
+		case ROLE_UPDATE:
+			return { ...state, role: action.payload };
 		case LOGIN_USER:
 			return { ... state, loading: true, error: ''};
 		case LOGIN_USER_SUCCESS:
 			return { ...state, ...INITIAL_STATE, user: action.payload};
 		case LOGIN_USER_FAIL:
 			return { ... state, error: 'Authentication Failed.', password: '', loading: false};
-		case SIGNUP_USER:
+		case UPDATE_USER:
 			return { ... state, loading: true, error: ''};
-		case SIGNUP_USER_SUCCESS:
+		case UPDATE_USER_SUCCESS:
 			return {...state, ...INITIAL_STATE, user: action.payload }
-		case SIGNUP_USER_FAIL:
-			return {...state, error: 'Sign Up Failed', password: '', loading: false}
+		case UPDATE_USER_FAIL:
+			return {...state, error: 'Account Update Failed', password: '', loading: false}
 		default:
 			return state;
 	}

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import {
   emailChanged, 
   passwordChanged, 
   signUpUser,
   firstnameChanged,
-  lastnameChanged
+  lastnameChanged,
    } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
-class SignUpForm extends Component {
+class AccountInfoForm extends Component {
 	
 	onEmailChange(text){
 		this.props.emailChanged(text);
@@ -59,7 +59,7 @@ class SignUpForm extends Component {
 			<Card>
 				<CardSection>
 					<Input 
-						label = "Email"
+						label = "Email: "
 						placeholder = "email@gmail.com"
 						onChangeText = {this.onEmailChange.bind(this)}
 						value = {this.props.email}
@@ -69,7 +69,7 @@ class SignUpForm extends Component {
 				<CardSection>
 					<Input 
 						secureTextEntry
-						label= "Password"
+						label= "Password: "
 						placeholder = "password"
 						onChangeText = {this.onPasswordChange.bind(this)}
 						value = {this.props.password}
@@ -78,7 +78,7 @@ class SignUpForm extends Component {
 
 				<CardSection>
 					<Input 
-						label = "First Name"
+						label = "First Name: "
 						placeholder = "Jon"
 						onChangeText = {this.onFirstNameChange.bind(this)}
 						value = {this.props.firstname}
@@ -87,13 +87,12 @@ class SignUpForm extends Component {
 
 				<CardSection>
 					<Input 
-						label = "Last Name"
+						label = "Last Name: "
 						placeholder = "Smith"
 						onChangeText = {this.onLastNameChange.bind(this)}
 						value = {this.props.lastname}
 					/>
 				</CardSection>
-
 				{this.renderError()}
 				<CardSection>
 				{this.renderButton()}
@@ -103,20 +102,20 @@ class SignUpForm extends Component {
 	}
 }
 
-const styles = {
-		errorTextStyle: {
-			fontSize: 20,
-			alignSelf: 'center',
-			color: 'red'
-		}
-};
+const styles = StyleSheet.create({
+  errorTextStyle: {
+	fontSize: 20,
+	alignSelf: 'center',
+	color: 'red'
+	}
+})
 
 const mapStateToProps = ({auth}) => {
-	const { email, password, error,  loading } = auth;
+	const { email, password, error,  loading, firstname, lastname} = auth;
 
-	return { email, password, error, loading};
+	return { email, password, error, loading, firstname, lastname};
 };
 
 export default connect(mapStateToProps, {
   emailChanged, passwordChanged, signUpUser, firstnameChanged, lastnameChanged
-})(SignUpForm);
+})(AccountInfoForm);

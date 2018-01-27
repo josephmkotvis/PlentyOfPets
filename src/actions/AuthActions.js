@@ -6,11 +6,12 @@ import {
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_FAIL,
 	LOGIN_USER,
-	SIGNUP_USER,
-	SIGNUP_USER_SUCCESS,
-	SIGNUP_USER_FAIL,
+	UPDATE_USER,
+	UPDATE_USER_SUCCESS,
+	UPDATE_USER_FAIL,
 	FIRST_NAME_CHANGED,
-	LAST_NAME_CHANGED
+	LAST_NAME_CHANGED,
+	ROLE_UPDATE
 } from './types';
 
 export const emailChanged = (text) => {
@@ -40,9 +41,18 @@ export const lastnameChanged = (text) => {
 		payload: text
 	};
 };
-export const signUpUser = ({ email, password}) => {
+
+export const roleUpdate = (text) => {
+	return {
+		type: ROLE_UPDATE,
+		payload: text
+	};
+};
+
+export const updateUser = ({ email, password}) => {
+		const {currentUser} = firebase.auth();
 return (dispatch) => {
-	dispatch({ type: SIGNUP_USER});
+	dispatch({ type: UPDATE_USER});
 	firebase.auth().createUserWithEmailAndPassword(email, password)
 		.then(user => signUpUserSuccess(dispatch, user))
 			.catch	(() => signUpUserFail(dispatch));
@@ -57,15 +67,14 @@ export const loginUser= ({ email, password }) => {
 				.catch(() => loginUserFail(dispatch));
 		};
 	};
-const signUpUserSuccess = (dispatch) => {
+const updateUserSuccess = (dispatch) => {
 	dispatch({
-	 type: SIGNUP_USER_SUCCESS,
+	 type: UPDATE_USER_SUCCESS,
 	 payload: user
 	  });
-	console.log("gonna send to account info asap");
 };
-const signUpUserFail = (dispatch) => {
-	dispatch({ type: SIGNUP_USER_FAIL});
+const updateUserFail = (dispatch) => {
+	dispatch({ type: UPDATE_USER_FAIL});
 };
 const loginUserFail = (dispatch) => {
   dispatch({ type: LOGIN_USER_FAIL });
