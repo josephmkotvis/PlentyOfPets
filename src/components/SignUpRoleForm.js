@@ -18,7 +18,7 @@ onButtonSellerPress(){
 }
 onAccept(){
 	this.setState({ showBuyerModal: false, showSellerModal: false });
-	Actions.AccountInfoForm();
+	Actions.accountInfoForm();
 }
 onDecline(){
 	this.setState({ showBuyerModal: false, showSellerModal: false });

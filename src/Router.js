@@ -11,7 +11,7 @@ const RouterComponent = () => {
 				<Scene key= "login"	component= {LoginForm} title="Please Login" initial/>
 				<Scene key = "signUpRole" component = {SignUpRoleForm} title = "" />
 				<Scene
-					 key = "AccountInfoForm"
+					 key = "accountInfoForm"
 					 component = {AccountInfoForm} 
 					 title = "Account Info" 
 					 left={() => null} />
