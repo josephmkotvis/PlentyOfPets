@@ -6,16 +6,18 @@ import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import LoginForm from './components/LoginForm';
 import Router from './Router';
+import { FIREBASEAPIKEY } from '../apiKeys';
 
 class App extends Component {
 	componentWillMount(){
-		 const config = {
-		    apiKey: 'AIzaSyCYnDrHrhl4euLDb3lNb0S9Aik4U3Y5o7c',
-		    authDomain: 'manager-5a973.firebaseapp.com',
-		    databaseURL: 'https://manager-5a973.firebaseio.com',
-		    projectId: 'manager-5a973',
-		    storageBucket: 'manager-5a973.appspot.com',
-		    messagingSenderId: '953918193575'
+	  const config = {
+	    apiKey: FIREBASEAPIKEY,
+	    authDomain: 'plentyofpets-9ac35.firebaseapp.com',
+	    databaseURL: 'https://plentyofpets-9ac35.firebaseio.com',
+	    projectId: 'plentyofpets-9ac35',
+	    storageBucket: '',
+	    messagingSenderId: '727200640734'
+  	};
   };
 
   firebase.initializeApp(config);
