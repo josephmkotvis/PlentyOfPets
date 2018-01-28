@@ -2,18 +2,15 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { userUpdate, loginUser, signupUser, beginSignUp } from '../actions';
+import { userUpdate, signUpUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 
-class LoginForm extends Component {
+class SignUpEmailPW extends Component {
+
 	onButtonPress (){
-		const {email, password} = this.props;
-		this.props.loginUser({ email, password});
-	}
-	onSignUpButtonPress (){
-		this.props.beginSignUp();
-		Actions.signUpEmailPW();
+		const {email, password, confirmPassword} = this.props;
+		this.props.signUpUser({email, password, confirmPassword})
 	}
 	renderError(){
 		if (this.props.error) {
@@ -32,25 +29,15 @@ class LoginForm extends Component {
 		}
 		return (
 			<Button onPress = {this.onButtonPress.bind(this)}>
-				Login
-			</Button>
-		);
-	}
-	renderSignUpButton(){
-		if (this.props.loading){
-			return <Spinner size = "large" />
-		}
-		return (
-			<Button onPress = {this.onSignUpButtonPress.bind(this)}>
-				Sign Up
+				Continue
 			</Button>
 		);
 	}
 
-	render (){
-		return(
-			<Card>
-				<CardSection>
+render(){
+	return(
+				<Card>
+					<CardSection>
 						<Input 
 							label = "Email: "
 							placeholder = "email@gmail.com"			
@@ -69,18 +56,24 @@ class LoginForm extends Component {
 						/>
 					</CardSection>
 
-				{this.renderError()}
-				<CardSection>
-				{this.renderButton()}
-				</CardSection>
-				<CardSection>
-				{this.renderSignUpButton()}
-				</CardSection>
-				
-			</Card>
-		);
-	}
-}
+					<CardSection>
+						<Input 
+							secureTextEntry
+							label= "Confirm Password: "
+							placeholder = "password"
+							value = {this.props.confirmPassword}
+							onChangeText = {value => this.props.userUpdate({ prop: 'confirmPassword', value })}
+						/>
+					</CardSection>
+					{this.renderError()}
+					<CardSection>
+					{this.renderButton()}
+					</CardSection>
+				</Card>
+		)
+	};
+};
+
 
 	const styles = {
 		errorTextStyle: {
@@ -90,12 +83,12 @@ class LoginForm extends Component {
 		}
 	};
 
-	const mapStateToProps = ({auth}) => {
-		const { email, password, error, loading } = auth;
 
-		return { email, password, error, loading};
-	};
+const mapStateToProps = ({auth}) => {
+	const { email, password, confirmPassword, error, loading } = auth
+	return { email, password, confirmPassword, error, loading};
+};
 
-	export default connect(mapStateToProps, {
-	  userUpdate, loginUser, beginSignUp
-	})(LoginForm);
+export default connect(mapStateToProps, {userUpdate, signUpUser})(SignUpEmailPW);
+
+

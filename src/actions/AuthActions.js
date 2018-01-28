@@ -1,117 +1,72 @@
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import { 
-	EMAIL_CHANGED,
-	PASSWORD_CHANGED,
 	CONFIRM_PASSWORD_CHANGED,
 	PASSWORD_MATCH_FAILED,
-	LOGIN_USER_SUCCESS,
 	LOGIN_USER_FAIL,
 	LOGIN_USER,
-	UPDATE_USER,
-	UPDATE_USER_SUCCESS,
-	UPDATE_USER_FAIL,
-	FIRST_NAME_CHANGED,
-	LAST_NAME_CHANGED,
-	ADDRESS_CHANGED,
-	CITY_CHANGED,
-	STATE_CHANGED,
-	ZIPCODE_CHANGED,
-	ROLE_UPDATE
+	SIGN_UP_USER_SUCCESS,
+	USER_UPDATE,
+	USER_UPDATE_SUCCESS,
+	SIGN_UP_USER_FAIL,
+	SIGN_UP_USER,
+	SELLER_INFO_UPDATED_SUCCESS,
+	SELLER_INFO_UPDATED_FAIL,
+	BUYER_INFO_UPDATED_SUCCESS,
+	BUYER_INFO_UPDATED_FAIL,
+	BEGIN_SIGN_UP
 } from './types';
 
-export const emailChanged = (text) => {
-	return {
-		type: EMAIL_CHANGED,
-		payload: text		
+export const userUpdate = ({prop, value}) =>  {
+	return(dispatch) => {
+		dispatch({
+			type: USER_UPDATE,
+			payload: {prop , value }
+		});
+		console.log(value);
+		if (value == 'Seller'){
+			Actions.sellerSignUp();
+		}
+		else if (value == 'Buyer'){
+			Actions.buyerSignUp();
+		}
 	};
 };
 
-export const passwordChanged = (text) => {
-	return {
-		type: PASSWORD_CHANGED,
-		payload: text
-	};
-};
-
-export const confirmPasswordChanged = (text) => {
-	return {
-		type: CONFIRM_PASSWORD_CHANGED,
-		payload: text
-	};
-};
- 
-export const firstnameChanged = (text) => {
-	return {
-		type: FIRST_NAME_CHANGED,
-		payload	: text
-	};
-};
-
-export const lastnameChanged = (text) => {
-	return {
-		type: LAST_NAME_CHANGED,
-		payload: text
-	};
-};
-
-export const addressChanged = (text) => {
-	return {
-		type: ADDRESS_CHANGED,
-		payload: text
-	};
-};
-
-export const cityChanged = (text) => {
-	return{
-		type: CITY_CHANGED,
-		payload: text
-	};
-};
-
-export const stateChanged = (text) => {
-	return{
-		type: STATE_CHANGED,
-		payload: text
-	};
-};
-
-export const zipcodeChanged = (text) => {
-	return{
-		type: ZIPCODE_CHANGED,
-		payload: text
-	};
-};
-
-export const roleUpdate = (text) => {
-	return {
-		type: ROLE_UPDATE,
-		payload: text
-	};
-};
-
-export const updateUser = ({ 			
-			email, 
-			password, 
-			comfirmPassword, 
-			firstname, 
-			lastname,
-			address, 
-			city, 
-			state, 
-			zipcode
-		}) => {
-	const {currentUser} = firebase.auth();
-return (dispatch) => {
-		dispatch({ type: UPDATE_USER});
-		if (PasswordsMatch(password, comfirmPassword)){
-				firebase.auth().createUserWithEmailAndPassword(email, password)
-			.then(user => updateUserSuccess(dispatch, user))
-				.catch	(() => updateUserFail(dispatch));
+export const signUpUser = ({ email, password, confirmPassword}) => {
+	return(dispatch) => {
+		if (PasswordsMatch( password, confirmPassword)){
+			dispatch({ type: SIGN_UP_USER});
+			firebase.auth().createUserWithEmailAndPassword(email, password)
+				.then( user => signUpUserSuccess(dispatch, user))
+					.catch(() => signUpUserFail(dispatch));
 		}
 		else {
 			dispatch({ type: PASSWORD_MATCH_FAILED})
+		}
+
+	};
+};
+
+export const signUpBuyerInfo = ({ firstname, lastname,address, city, userState, zipcode, role, currentAnimals, familySize, animalHistory}) => {
+	const {currentUser} =  firebase.auth();
+
+		return (dispatch) => {
+			firebase.database().ref(`/users/${currentUser.uid}`)
+				.push({ firstname, lastname,address, city, userState, zipcode, role, currentAnimals, familySize, animalHistory})
+					.then( user => signUpBuyerInfoSuccess(dispatch, user))
+						.catch(() => signUpBuyerInfoFail(dispatch));
 		};
+};
+
+export const signUpSellerInfo = ({ firstname, lastname,address, city, userState, zipcode, role}) => {
+	const {currentUser} =  firebase.auth();
+
+	return (dispatch) => {
+		firebase.database().ref(`/users/${currentUser.uid}`)
+			.push({ firstname, lastname,address, city, userState, zipcode, role})
+				.then( user => signUpSellerInfoSuccess(dispatch, user))
+					.catch(() => signUpSellerInfoFail(dispatch));
 	};
 };
 
@@ -123,22 +78,61 @@ export const loginUser= ({ email, password }) => {
 				.catch(() => loginUserFail(dispatch));
 		};
 	};
-const PasswordsMatch = ( password, comfirmPassword) => {
-	if(password != comfirmPassword){
-		console.log("Passwords do not match");
-		return false;
-	}
-	else {
+
+export const beginSignUp = () => {
+	return( dispatch) => 
+		dispatch({type: BEGIN_SIGN_UP});
+};
+
+const signUpSellerInfoSuccess = (dispatch, user) =>{
+	dispatch({
+		type: SELLER_INFO_UPDATED_SUCCESS,
+		payload: user
+	}); 	
+};
+
+const signUpSellerInfoFail = (dispatch, user) => {
+	dispatch({
+		type: SELLER_INFO_UPDATED_FAIL
+	});
+};
+
+const signUpBuyerInfoSuccess = (dispatch, user) =>{
+	dispatch({
+		type: BUYER_INFO_UPDATED_SUCCESS,
+		payload: user
+	}); 	
+};
+
+const signUpBuyerInfoFail = (dispatch, user) => {
+	dispatch({
+		type:BUYER_INFO_UPDATED_FAIL
+	});
+};
+
+const signUpUserFail = (dispatch) => {
+	dispatch({ type: SIGN_UP_USER_FAIL});
+};
+
+const signUpUserSuccess = ( dispatch, user ) => {
+		dispatch({
+			type: SIGN_UP_USER_SUCCESS,
+			payload: user
+	});
+	Actions.signUpRole();
+};
+
+const PasswordsMatch = ( password, confirmPassword) => {
+	if(password === confirmPassword){
 		console.log("Passwords do match");
 		return true;
 	}
+	else {
+		console.log("Passwords do not match");
+		return false;
+	}
 };
-const updateUserSuccess = (dispatch) => {
-	dispatch({
-	 type: UPDATE_USER_SUCCESS,
-	 payload: user
-	  });
-};
+
 const updateUserFail = (dispatch) => {
 	dispatch({ type: UPDATE_USER_FAIL});
 };

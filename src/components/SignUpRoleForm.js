@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, Picker } from 'react-native';
 import { connect } from 'react-redux';
-import { roleUpdate } from '../actions';
+import { userUpdate } from '../actions';
 import { Card, CardSection, Input, Button, Spinner, Confirm } from './common';
 import { Actions } from 'react-native-router-flux';
 
@@ -9,21 +9,25 @@ class SignUpRoleForm extends Component  {
 	state = {showBuyerModal: false, showSellerModal: false};
 
 onButtonBuyerPress(){
-	this.props.roleUpdate('Buyer');
 	this.setState({ showBuyerModal: true });
 }
 onButtonSellerPress(){
-	this.props.roleUpdate('Seller');
-		this.setState({ showSellerModal: true });
+	this.setState({ showSellerModal: true });
 }
-onAccept(){
-	this.setState({ showBuyerModal: false, showSellerModal: false });
-	Actions.accountInfoForm();
-}
-onDecline(){
+onBuyerAccept(){
+	this.props.userUpdate({ prop: 'role', value: 'Buyer'});
 	this.setState({ showBuyerModal: false, showSellerModal: false });
 }
-
+onBuyerDecline(){
+	this.setState({ showBuyerModal: false, showSellerModal: false });
+}
+onSellerAccept(){
+	this.props.userUpdate({ prop: 'role', value: 'Seller' });
+	this.setState({ showBuyerModal: false, showSellerModal: false });
+}
+onSellerDecline(){
+	this.setState({ showBuyerModal: false, showSellerModal: false });
+}
 
 	render(){
 		return(
@@ -47,15 +51,15 @@ onDecline(){
 				</CardSection>
 				<Confirm
 					visible={this.state.showSellerModal}
-					onAccept={this.onAccept.bind(this)}
-					onDecline={this.onDecline.bind(this)}
+					onAccept={this.onSellerAccept.bind(this)}
+					onDecline={this.onSellerDecline.bind(this)}
 				>
 					Do you want to adopt out/sell animals?
 				</Confirm>
 				<Confirm
 					visible={this.state.showBuyerModal}
-					onAccept={this.onAccept.bind(this)}
-					onDecline={this.onDecline.bind(this)}
+					onAccept={this.onBuyerAccept.bind(this)}
+					onDecline={this.onSellerDecline.bind(this)}
 				>
 					Do you want to adopt/buy animals?
 				</Confirm>
@@ -75,4 +79,4 @@ const mapStateToProps = ({auth}) => {
 	return {role};
 };
 
-export default connect(mapStateToProps, { roleUpdate })(SignUpRoleForm);
+export default connect(mapStateToProps, { userUpdate })(SignUpRoleForm);

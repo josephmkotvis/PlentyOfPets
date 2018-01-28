@@ -2,19 +2,19 @@ export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_FAIL = 'login_user_fail';
 export const LOGIN_USER = 'login_user';
 
-export const EMAIL_CHANGED = 'email_changed';
-export const PASSWORD_CHANGED = 'password_changed';
-export const CONFIRM_PASSWORD_CHANGED = 'comfirm_password_changed';
 export const PASSWORD_MATCH_FAILED = 'password_match_failed';
-export const FIRST_NAME_CHANGED = 'first_name_changed';
-export const LAST_NAME_CHANGED = 'last_name_changed';
-export const ADDRESS_CHANGED = 'address_changed';
-export const CITY_CHANGED = 'city_changed';
-export const STATE_CHANGED = 'state_changed';
-export const ZIPCODE_CHANGED = 'zipcode_changed';
 
-export const ROLE_UPDATE = 'role_update';
+export const USER_UPDATE = 'user_update';
+export const USER_UPDATE_FAIL = 'user_update_fail';
 
-export const UPDATE_USER = 'update_user';
-export const UPDATE_USER_SUCCESS = 'update_user_success';
-export const UPDATE_USER_FAIL = 'update_user_fail';
+export const BEGIN_SIGN_UP = 'begin_sign_up';
+export const SIGN_UP_USER = 'sign_up_user';
+export const SIGN_UP_USER_SUCCESS = 'sign_up_user_success';
+export const SIGN_UP_USER_FAIL = 'sign_up_user_fail';
+
+export const SELLER_INFO_UPDATED_SUCCESS = 'seller_info_updated_success';
+export const SELLER_INFO_UPDATED_FAIL = 'seller_info_updated_fail';
+
+
+export const BUYER_INFO_UPDATED_SUCCESS = 'buyer_info_updated_success';
+export const BUYER_INFO_UPDATED_FAIL = 'buyer_info_updated_fail';

@@ -22,6 +22,7 @@ class App extends Component {
   firebase.initializeApp(config);
 }
 	render() {
+	console.ignoredYellowBox = ['Setting a timer'];
 	const store= createStore(reducers, {}, applyMiddleware(ReduxThunk));		
 
 		return (
