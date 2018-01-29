@@ -1,27 +1,11 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
-import { employeesFetch } from '../actions';
+import { ListView, Text } from 'react-native';
 import ListItem from './ListItem';
 
 
 class SellerAnimalList extends Component {
-	componentWillMount(){
-
-	}
-
-	componentWillReceiveProps(){
-
-	}
-	createDataSource({}){
-
-
-	}
-
-	renderRow(){
-
-	}
 
 	render(){
 		return(

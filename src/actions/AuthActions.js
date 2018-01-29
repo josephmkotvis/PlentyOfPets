@@ -89,6 +89,7 @@ const signUpSellerInfoSuccess = (dispatch, user) =>{
 		type: SELLER_INFO_UPDATED_SUCCESS,
 		payload: user
 	}); 	
+	Actions.sellerAnimalList();
 };
 
 const signUpSellerInfoFail = (dispatch, user) => {

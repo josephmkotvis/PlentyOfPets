@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { } from '../actions';
-import { Card, CardSection, Button } from './common';
+import { Card, CardSection, Button } from '../common';
+import AnimalForm from './AnimalForm';
+
 
 class AnimalAdd extends Component {
   onButtonPress() {
@@ -24,7 +25,7 @@ class AnimalAdd extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name, phone, shift } = state.AnimalForm;
+  const { name, phone, shift } = state.animalForm;
 
   return { name, phone, shift };
 };

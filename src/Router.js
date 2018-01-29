@@ -21,8 +21,8 @@ const RouterComponent = () => {
 				<Scene key = "buyerSignUp"  component = {BuyerSignUp}  title = "Sign Up" />
 				<Scene
 					rightTitle= "Add"
-					onRight = {() = Actions.animalAdd()}
-					key = "animalList"
+					onRight = {() => Actions.animalAdd()}
+					key = "sellerAnimalList"
 					component = {SellerAnimalList}
 					title = "Animals"
 					left={() => null} 
