@@ -1,33 +1,90 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardSection, Button } from '../common';
+import { animalUpdate, animalAdd } from '../../actions';
+import {CardSection, Button } from '../common';
 import AnimalForm from './AnimalForm';
 
 
 class AnimalAdd extends Component {
   onButtonPress() {
-
-    //set up animal addition here w/ action
+    const {
+      type,
+      breed,
+      age,
+      lifeExpectency,
+      sex,
+      weight,
+      size,
+      training,
+      coatLength,
+      health,
+      neuteredState,
+      microChippedStatus,
+      status
+    } = this.props;
+    this.props.animalAdd({
+      type: type || "Dog",
+      breed,
+      age,
+      weight,
+      lifeExpectency: lifeExpectency || "Less than 1 Year",
+      sex: sex || "Male",
+      size: size || "Small",
+      training: training || "No Training",
+      coatLength: coatLength || "No Hair",
+      health: health || "Good Shape",
+      neuteredState: neuteredState || "Not Neutered",
+      microChippedStatus: microChippedStatus || "Not Microchipped",
+      status: status || "Available for Adoption"
+    });
   }
 
   render() {
     return (
-      <Card>
+      <View style = {{flex: 1}} >
         <AnimalForm {...this.props} />
         <CardSection>
           <Button onPress={this.onButtonPress.bind(this)}>
             Add Animal
           </Button>
         </CardSection>
-      </Card>
+      </View>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { name, phone, shift } = state.animalForm;
-
-  return { name, phone, shift };
+  const {
+    type,
+    breed,
+    age,
+    lifeExpectency,
+    sex,
+    weight,
+    size,
+    training,
+    coatLength,
+    health,
+    neuteredState,
+    microChippedStatus,
+    status
+  } = state.animalForm;
+  return {
+    type,
+    breed,
+    age,
+    lifeExpectency,
+    sex,
+    weight,
+    size,
+    training,
+    coatLength,
+    health,
+    neuteredState,
+    microChippedStatus,
+    status
+  };
 };
 
-export default connect(mapStateToProps, {})(AnimalAdd)
+export default connect(mapStateToProps, {animalUpdate, animalAdd})(AnimalAdd)

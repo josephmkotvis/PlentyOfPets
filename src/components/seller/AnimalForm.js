@@ -44,21 +44,28 @@ class AnimalForm extends Component {
 
 				<CardSection>
 					<Input
-						label= "Life Expectancy: "
-						placeholder= "13 years"
-						value={this.props.lifeExpectency}
-						onChangeText= {value => this.props.animalUpdate({ prop: 'lifeExpectency', value})}
-					/>
-				</CardSection>
-
-				<CardSection>
-					<Input
 						label= "Weight: "
 						placeholder= "13 pounds"
 						value= {this.props.weight}
 						onChangeText={value => this.props.animalUpdate({ prop: 'weight', value})}
 					/>
 				</CardSection>
+
+				<CardSection style = {styles.pickerCardSectionStyle}>
+					<Text style={styles.pickerTextStyle}>Life Expectancy: </Text>
+					<Picker
+						style = {styles.pickerStyle}
+						selectedValue={this.props.lifeExpectency}
+						onValueChange={value => this.props.animalUpdate ( { prop: 'lifeExpectency' , value})}
+					>
+						<Picker.Item label="Less than 1 Year" value ="Less than 1 Year" />
+						<Picker.Item label="1-5 Years" value ="1-5 Years" />
+						<Picker.Item label="5-10 Years" value ="5-10 Years" />
+						<Picker.Item label="10-20 Years" value ="10-20 Years" />
+						<Picker.Item label="20+ Years" value ="20+ Years" />
+					</Picker>
+				</CardSection>
+
 
 				<CardSection style = {styles.pickerCardSectionStyle}>
 					<Text style={styles.pickerTextStyle}>Sex: </Text>

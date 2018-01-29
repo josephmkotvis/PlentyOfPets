@@ -20,3 +20,4 @@ export const BUYER_INFO_UPDATED_SUCCESS = 'buyer_info_updated_success';
 export const BUYER_INFO_UPDATED_FAIL = 'buyer_info_updated_fail';
 
 export const ANIMAL_UPDATE = 'animal_update';
+export const ANIMAL_ADD = 'animal_add';

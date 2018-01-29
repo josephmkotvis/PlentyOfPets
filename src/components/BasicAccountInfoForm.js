@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { ScrollView, Text, StyleSheet} from 'react-native';
 import { connect } from 'react-redux';
 import { userUpdate } from '../actions';
 import {CardSection, Input } from './common';
@@ -7,7 +7,7 @@ import {CardSection, Input } from './common';
 class AccountInfoForm extends Component {
 	render(){
 		return(
-				<View>
+				<ScrollView>
 					<CardSection>
 						<Input 
 							label = "First Name: "
@@ -61,7 +61,7 @@ class AccountInfoForm extends Component {
 							onChangeText = {value => this.props.userUpdate({ prop: 'zipcode', value })}
 						/>
 					</CardSection>	 				
-				</View>
+				</ScrollView>
 
 		);
 	}
