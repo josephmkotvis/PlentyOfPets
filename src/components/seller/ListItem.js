@@ -1,35 +1,73 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Text, TouchableWithoutFeedback, View, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { CardSection } from '../common';
+import { CardSection, Card, Button } from '../common';
 
 class ListItem extends Component {
 onRowPress(){
+
 }
 
 	render (){
-		const {name} = this.props.employee;
+		const {name, image, status} = this.props.animal;
 
 		return (
 			<TouchableWithoutFeedback
 				onPress={this.onRowPress.bind(this)}
 			>
-				<View>
+				<Card>
 					<CardSection>
-						<Text style = {styles.titleStyle}>	
-							{name}
-						</Text>
+						<View style = {styles.headerContentStyle}>
+							<Text style = {styles.headerTextStyle}>
+								{name}
+							</Text>
+						</View>
 					</CardSection>
-				</View>
+					<CardSection>
+						<Image
+							style = {styles.imageStyle}
+							source = {{ uri: image }}
+						/>
+					</CardSection>
+
+					<CardSection>
+						<Button onPress = {()=> Actions.animalEdit({ animal: this.props.animal })}>
+							Details
+						</Button>
+
+						<Button>
+							Applicants
+						</Button>
+
+					</CardSection>
+				</Card>
 				</TouchableWithoutFeedback>
 			);
 	}
 }
 
 const styles = {
-	titleStyle : {
-		fontSize: 18,
-		paddingLeft: 15
+	headerContentStyle: {
+		flexDirection: 'column',
+		justifyContent: 'space-around'
+	},
+	headerTextStyle:{
+		fontSize: 18	
+	},
+	thumbnailStyle: {
+		height: 50,
+		width: 50
+	},
+	thumbnailContainerStyle:{
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginLeft: 10,
+		marginRight: 10
+	},
+	imageStyle: {
+		height: 300,
+		flex: 1,
+		width: null
 	}
 };
 

@@ -30,7 +30,7 @@ onSellerDecline(){
 }
 
 	render(){
-		return(
+		return(	
 			<Card>
 				<CardSection>
 					<Text> What are you looking to do? </Text>

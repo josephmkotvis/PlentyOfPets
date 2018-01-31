@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { ScrollView, Text, StyleSheet} from 'react-native';
 import { connect } from 'react-redux';
@@ -5,7 +6,9 @@ import { userUpdate } from '../actions';
 import {CardSection, Input } from './common';
 
 class AccountInfoForm extends Component {
+
 	render(){
+
 		return(
 				<ScrollView>
 					<CardSection>
@@ -62,7 +65,6 @@ class AccountInfoForm extends Component {
 						/>
 					</CardSection>	 				
 				</ScrollView>
-
 		);
 	}
 }
@@ -71,9 +73,6 @@ class AccountInfoForm extends Component {
 
 const mapStateToProps = ({auth}) => {
 	const {
-	 email,
-	 password, 
-	 confirmPassword,
 	 firstname, 
 	 lastname, 
 	 address, 
@@ -83,9 +82,6 @@ const mapStateToProps = ({auth}) => {
 	} = auth;
 
 	return {
-	 email, 
-	 password, 
-	 confirmPassword,
 	 firstname, 
 	 lastname, 
 	 address, 

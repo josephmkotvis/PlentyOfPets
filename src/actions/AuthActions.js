@@ -1,8 +1,10 @@
 import firebase from 'firebase';
+import _ from 'lodash';
 import { Actions } from 'react-native-router-flux';
 import { 
 	CONFIRM_PASSWORD_CHANGED,
 	PASSWORD_MATCH_FAILED,
+	LOGIN_USER_SUCCESS,
 	LOGIN_USER_FAIL,
 	LOGIN_USER,
 	SIGN_UP_USER_SUCCESS,
@@ -14,7 +16,8 @@ import {
 	SELLER_INFO_UPDATED_FAIL,
 	BUYER_INFO_UPDATED_SUCCESS,
 	BUYER_INFO_UPDATED_FAIL,
-	BEGIN_SIGN_UP
+	BEGIN_SIGN_UP,
+	USER_INFO_FETCH_SUCCESS
 } from './types';
 
 export const userUpdate = ({prop, value}) =>  {
@@ -31,6 +34,19 @@ export const userUpdate = ({prop, value}) =>  {
 			Actions.buyerSignUp();
 		}
 	};
+};
+
+export const accountInfoFetch = () => {
+  const { currentUser } = firebase.auth();
+
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/information`)
+      .on('value', snapshot => { 
+      		 _.forEach( snapshot.val(), (val) => {
+			dispatch({ type: USER_INFO_FETCH_SUCCESS, payload: {val} })
+		})
+	});
+  };
 };
 
 export const signUpUser = ({ email, password, confirmPassword}) => {
@@ -52,7 +68,7 @@ export const signUpBuyerInfo = ({ firstname, lastname,address, city, userState, 
 	const {currentUser} =  firebase.auth();
 
 		return (dispatch) => {
-			firebase.database().ref(`/users/${currentUser.uid}`)
+			firebase.database().ref(`/users/${currentUser.uid}/information`)
 				.push({ firstname, lastname,address, city, userState, zipcode, role, currentAnimals, familySize, animalHistory})
 					.then( user => signUpBuyerInfoSuccess(dispatch, user))
 						.catch(() => signUpBuyerInfoFail(dispatch));
@@ -63,10 +79,36 @@ export const signUpSellerInfo = ({ firstname, lastname,address, city, userState,
 	const {currentUser} =  firebase.auth();
 
 	return (dispatch) => {
-		firebase.database().ref(`/users/${currentUser.uid}`)
+		firebase.database().ref(`/users/${currentUser.uid}/information`)
 			.push({ firstname, lastname,address, city, userState, zipcode, role})
 				.then( user => signUpSellerInfoSuccess(dispatch, user))
 					.catch(() => signUpSellerInfoFail(dispatch));
+	};
+};
+
+export const updateSellerInfo = ({firstname, lastname,address, city, userState, zipcode}) => {
+	const {currentUser} = firebase.auth();
+
+	return (dispatch) => {
+		firebase.database().ref(`/users/${currentUser.uid}/information/${currentUser.uid}`)
+			.set({firstname, lastname,address, city, userState, zipcode})
+				.then(() => {
+					dispatch ({ type: USER_UPDATE_SUCCESS});
+					Actions.sellerAnimalList();
+				});
+	};
+};
+
+export const updateBuyerInfo = ({firstname, lastname, address, city, userState, zipcode, currentAnimals, familySize, animalHistory}) => {
+	const {currentUser} = firebase.auth();
+
+	return (dispatch) => {
+		firebase.database().ref(`/users/${currentUser.uid}/information${currentUser.uid}`)
+			.set({firstname, lastname, address, city, userState, zipcode, currentAnimals, familySize, animalHistory})
+				.then(() => {
+					dispatch ({ type: USER_UPDATE_SUCCESS});
+					Actions.buyerAccountRouter();
+				});
 	};
 };
 
@@ -76,8 +118,8 @@ export const loginUser= ({ email, password }) => {
 		firebase.auth().signInWithEmailAndPassword(email, password )
 			.then(user => loginUserSuccess(dispatch, user))
 				.catch(() => loginUserFail(dispatch));
-		};
 	};
+};
 
 export const beginSignUp = () => {
 	return( dispatch) => 
@@ -103,6 +145,7 @@ const signUpBuyerInfoSuccess = (dispatch, user) =>{
 		type: BUYER_INFO_UPDATED_SUCCESS,
 		payload: user
 	}); 	
+	Actions.buyerHome();
 };
 
 const signUpBuyerInfoFail = (dispatch, user) => {
@@ -142,8 +185,12 @@ const loginUserFail = (dispatch) => {
 };
 
 const loginUserSuccess = (dispatch, user) => {
+	console.log("comoooon")
   dispatch({
     type: LOGIN_USER_SUCCESS,
     payload: user
   });
+  console.log("why wont you go")
+  Actions.buyerHome();
+  console.log("shouldve gone")
 };

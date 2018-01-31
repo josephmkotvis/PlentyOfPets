@@ -5,10 +5,11 @@ import { animalUpdate, animalAdd } from '../../actions';
 import {CardSection, Button } from '../common';
 import AnimalForm from './AnimalForm';
 
-
+  
 class AnimalAdd extends Component {
   onButtonPress() {
     const {
+      name,
       type,
       breed,
       age,
@@ -17,17 +18,22 @@ class AnimalAdd extends Component {
       weight,
       size,
       training,
+      livingCost,
       coatLength,
       health,
       neuteredState,
       microChippedStatus,
-      status
+      status,
+      image,
+      price
     } = this.props;
     this.props.animalAdd({
+      name,
       type: type || "Dog",
       breed,
       age,
       weight,
+      livingCost: livingCost || "$",
       lifeExpectency: lifeExpectency || "Less than 1 Year",
       sex: sex || "Male",
       size: size || "Small",
@@ -36,7 +42,9 @@ class AnimalAdd extends Component {
       health: health || "Good Shape",
       neuteredState: neuteredState || "Not Neutered",
       microChippedStatus: microChippedStatus || "Not Microchipped",
-      status: status || "Available for Adoption"
+      status: status || "Available for Adoption",
+      image: image || "https://firebasestorage.googleapis.com/v0/b/plentyofpets-9ac35.appspot.com/o/images%2FNoPetImage.jpg?alt=media&token=9f53f1c2-3b40-4951-a7b8-a1ae0d65567a",
+      price
     });
   }
 
@@ -56,6 +64,8 @@ class AnimalAdd extends Component {
 
 const mapStateToProps = (state) => {
   const {
+    image,
+    name,
     type,
     breed,
     age,
@@ -68,9 +78,13 @@ const mapStateToProps = (state) => {
     health,
     neuteredState,
     microChippedStatus,
-    status
+    status,
+    livingCost,
+    price
   } = state.animalForm;
   return {
+    image,
+    name,
     type,
     breed,
     age,
@@ -83,7 +97,9 @@ const mapStateToProps = (state) => {
     health,
     neuteredState,
     microChippedStatus,
-    status
+    status,
+    livingCost,
+    price
   };
 };
 

@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
 import { Text, ScrollView, Picker, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { animalUpdate } from '../../actions';
-import { CardSection, Input } from '../common';
+import RNFetchBlob from 'react-native-fetch-blob';
+import CameraRollPicker from 'react-native-camera-roll-picker';
+import { Actions } from 'react-native-router-flux';
+import { animalUpdate, imageAddViewUpdate } from '../../actions';
+import { CardSection, Input, Button } from '../common';
 
 class AnimalForm extends Component {
+
 
 	render(){
 		return(
 			<ScrollView>
+				<CardSection>
+					<Input
+						label= "Name: "
+						placeholder= "Zoey"
+						value= {this.props.name}
+						onChangeText= {value => this.props.animalUpdate({ prop: 'name', value })}
+					/>
+				</CardSection>
+
 				<CardSection style = {styles.pickerCardSectionStyle}>
 					<Text style={styles.pickerTextStyle}>Type: </Text>
 					<Picker
@@ -161,6 +174,28 @@ class AnimalForm extends Component {
 				</CardSection>
 
 				<CardSection style = {styles.pickerCardSectionStyle}>
+					<Text style={styles.pickerTextStyle}>Living Costs: </Text>
+					<Picker
+						style = {styles.pickerStyle}
+						selectedValue={this.props.livingCost}
+						onValueChange={value => this.props.animalUpdate ( { prop: 'livingCost' , value})}
+					>
+						<Picker.Item label="$" value ="$" />
+						<Picker.Item label="$$" value ="$$" />
+						<Picker.Item label="$$$" value ="$$$" />
+					</Picker>
+				</CardSection>
+
+				<CardSection>
+					<Input
+						label= "Adoption Fee/Price: "
+						placeholder= "120$"
+						value= {this.props.price}
+						onChangeText= {value => this.props.animalUpdate({ prop: 'price', value })}
+					/>
+				</CardSection>
+
+				<CardSection style = {styles.pickerCardSectionStyle}>
 					<Text style={styles.pickerTextStyle}>Status: </Text>
 					<Picker
 						style = {styles.pickerStyle}
@@ -176,6 +211,14 @@ class AnimalForm extends Component {
 					</Picker>
 				</CardSection>
 
+				<CardSection>
+					<Button
+						onPress= {() => Actions.animalImageAdd()}
+						style = {styles.buttoneStyle}
+					>
+						Choose Image
+					</Button>
+				</CardSection>
 			</ScrollView>
 		);
 	}
@@ -195,11 +238,15 @@ const styles = StyleSheet.create({
   pickerStyle: {
     flex: 2,
     margin: -8
-  }
+  },
+  buttonStyle: {
+		flex: 2 
+	}
 })
 
 const mapStateToProps = (state) => {
 	const {
+		name,
 		type,
 		breed,
 		age,
@@ -212,9 +259,12 @@ const mapStateToProps = (state) => {
 		health,
 		neuteredState,
 		microChippedStatus,
-		status
+		status,
+		livingCost,
+		price
 	} = state.animalForm;
 	return {
+		name,
 		type,
 		breed,
 		age,
@@ -227,8 +277,10 @@ const mapStateToProps = (state) => {
 		health,
 		neuteredState,
 		microChippedStatus,
-		status
+		status,
+		livingCost,
+		price
 	};
 };
 
-export default connect(mapStateToProps, {animalUpdate} )(AnimalForm);
+export default connect(mapStateToProps, {animalUpdate, imageAddViewUpdate} )(AnimalForm);

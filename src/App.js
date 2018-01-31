@@ -15,7 +15,7 @@ class App extends Component {
 	    authDomain: 'plentyofpets-9ac35.firebaseapp.com',
 	    databaseURL: 'https://plentyofpets-9ac35.firebaseio.com',
 	    projectId: 'plentyofpets-9ac35',
-	    storageBucket: '',
+	    storageBucket: 'plentyofpets-9ac35.appspot.com',
 	    messagingSenderId: '727200640734'
   	};
   	

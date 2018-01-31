@@ -12,7 +12,9 @@ import {
 	SELLER_INFO_UPDATED_FAIL,
 	BUYER_INFO_UPDATED_SUCCESS,
 	BUYER_INFO_UPDATED_FAIL,
-	BEGIN_SIGN_UP
+	BEGIN_SIGN_UP,
+	USER_UPDATE_SUCCESS,
+	USER_INFO_FETCH_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -47,6 +49,8 @@ export default (state = INITIAL_STATE, action ) => {
 			return { ... state, error: 'Authentication Failed.', password: '', confirmPassword: '', loading: false};
 		case USER_UPDATE:
 			return {...state, [action.payload.prop]: action.payload.value };
+		case USER_UPDATE_SUCCESS:
+			return INITIAL_STATE;
 		case USER_UPDATE_FAIL:
 			return {...state, error: 'Account Update Failed', password: '', confirmPassword: '', loading: false};
 		case BEGIN_SIGN_UP:
@@ -65,6 +69,8 @@ export default (state = INITIAL_STATE, action ) => {
 			return {...state, ...INITIAL_STATE, user: action.payload};
 		case BUYER_INFO_UPDATED_FAIL:
 			return {...state, error: 'Information Update Fail'}
+		case USER_INFO_FETCH_SUCCESS:
+			return action.payload.val;
 		default:
 			return state;
 	}
