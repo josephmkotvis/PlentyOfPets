@@ -33,7 +33,8 @@ renderButton(){
  		zipcode,
  		currentAnimals, 
  		familySize, 
- 		animalHistory
+ 		animalHistory,
+ 		uid
  	} = this.props;
 
 		this.props.updateBuyerInfo({ 		
@@ -45,7 +46,9 @@ renderButton(){
  		zipcode,
  		currentAnimals, 
  		familySize, 
- 		animalHistory});
+ 		animalHistory,
+ 		uid
+ 	});
 	}
 
 	render(){

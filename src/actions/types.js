@@ -28,3 +28,7 @@ export const ANIMAL_SAVE_SUCCESS = 'animal_save_success';
 export const ANIMALS_FETCH_SUCCESS = 'animals_fetch_success';
 export const ANIMALS_FETCH = 'animals_fetch';
 export const ANIMAL_REMOVE_SUCCESS = 'animal_remove_success';
+
+export const PREFERENCE_UPDATE = 'preference_update';
+export const PREFERENCE_UPDATE_SUCCESS = 'preference_update_success';
+export const PREFERENCES_FETCH_SUCCESS = 'preference_fetch_success';

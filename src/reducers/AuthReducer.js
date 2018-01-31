@@ -33,7 +33,8 @@ const INITIAL_STATE = {
 	role: '',
 	currentAnimals: '',
 	familySize: '',
-	animalHistory: ''
+	animalHistory: '',
+	uid: ''
 };
 
 export default (state = INITIAL_STATE, action ) => {

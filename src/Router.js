@@ -13,6 +13,7 @@ import SellerAccountEdit from './components/SellerAccountEdit';
 import BuyerHome from './components/buyer/BuyerHome';
 import BuyerAccountRouter from './components/buyer/BuyerAccountRouter';
 import BuyerAccountEdit from './components/BuyerAccountEdit';
+import BuyerPreferences from './components/buyer/BuyerPreferences';
 
 
 const RouterComponent = () => {
@@ -46,7 +47,7 @@ const RouterComponent = () => {
 				 />
 				<Scene key = "buyerAccountRouter" component = {BuyerAccountRouter} title = "Account"  left={() => null}/>
 				<Scene key = "buyerAccountEdit" component = {BuyerAccountEdit} title = " Account Details" />
-
+				<Scene key = "buyerPreferences" component ={BuyerPreferences} tite = "Animal Preferences" />
 			</Scene>
 		</Router>
 	);
