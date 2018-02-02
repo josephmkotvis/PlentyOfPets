@@ -1,4 +1,4 @@
-import { ANIMAL_UPDATE, ANIMAL_ADD, ANIMAL_SAVE_SUCCESS, ANIMAL_REMOVE_SUCCESS} from '../actions/types';
+import { ANIMAL_UPDATE, ANIMAL_APPLICANTS_FETCH_SUCCESS, ANIMAL_ADD, ANIMAL_SAVE_SUCCESS, ANIMAL_REMOVE_SUCCESS} from '../actions/types';
 
 const INITIAL_STATE={
 	name: '',
@@ -20,7 +20,8 @@ const INITIAL_STATE={
 	price: '',
 	image: '',
 	imageName: '',
-	imageURL: ''
+	imageURL: '',
+	applicants: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -33,6 +34,8 @@ export default (state = INITIAL_STATE, action) => {
 			return INITIAL_STATE;
 		case ANIMAL_REMOVE_SUCCESS:
 			return INITIAL_STATE;
+		case ANIMAL_APPLICANTS_FETCH_SUCCESS:
+			return {...state, applicants: action.payload};
 		default:
 			return state;
 	}

@@ -35,7 +35,8 @@ const INITIAL_STATE = {
 	familySize: '',
 	animalHistory: '',
 	uid: '',
-	sellType: ''
+	sellType: '',
+	phoneNumber: ''
 };
 
 export default (state = INITIAL_STATE, action ) => {

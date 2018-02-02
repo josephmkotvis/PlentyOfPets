@@ -10,8 +10,8 @@ class BuyerSignUp extends Component {
 
 
 	onButtonPress (){
-	const {firstname,  lastname, address,  city,  userState,  zipcode,  role, currentAnimals, familySize, animalHistory} = this.props;
-	this.props.signUpBuyerInfo({ firstname,  lastname, address,  city,  userState,  zipcode,  role, currentAnimals, familySize, animalHistory, rating: 0});
+	const {firstname,  lastname, address,  city,  userState,  zipcode,  role, currentAnimals, familySize, animalHistory, phoneNumber} = this.props;
+	this.props.signUpBuyerInfo({ firstname,  lastname, address,  city,  userState,  zipcode,  role, currentAnimals, familySize, animalHistory, phoneNumber: phoneNumber || "",  rating: 0});
 	}
 
 	renderButton(){
@@ -42,6 +42,14 @@ render (){
 			<Card>
 				<ScrollView>
 					<BasicAccountInfoForm {...this.props} />
+					<CardSection>
+							<Input
+								label ="Phone-Number:"
+								placeholder= "414-867-5309"
+								value = {this.props.phoneNumber}
+								onChangeText = {value => this.props.userUpdate({ prop: 'phoneNumber', value})}
+							/>
+						</CardSection>
 				<CardSection>
 					<Input
 						label ="Current Animals:"
@@ -68,7 +76,6 @@ render (){
 						onChangeText = {value => this.props.userUpdate({ prop: 'animalHistory', value})}
 					/>
 				</CardSection>
-				</ScrollView>
 				<View>
 						{this.renderError()}
 
@@ -76,6 +83,7 @@ render (){
 				<CardSection>
 					{this.renderButton()}			
 				</CardSection>
+			</ScrollView>
 			</Card>
 		</View>
 		);
@@ -101,7 +109,8 @@ const mapStateToProps = ({auth}) => {
 			role,
 			currentAnimals,
 			familySize,
-			animalHistory
+			animalHistory,
+			phoneNumber
 		} = auth
 	return {
 			firstname, 
@@ -113,7 +122,8 @@ const mapStateToProps = ({auth}) => {
 			role,
 			currentAnimals,
 			familySize,
-			animalHistory
+			animalHistory,
+			phoneNumber
 		}
 	};
 

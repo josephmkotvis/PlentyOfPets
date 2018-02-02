@@ -23,7 +23,6 @@ class SellerAnimalList extends Component {
 		}
 
 		createDataSource({ animals }){
-			console.log(animals)
 			const ds = new ListView.DataSource({
 				rowHasChanged: (r1, r2) => r1 !== r2
 			});

@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Text, TouchableWithoutFeedback, View, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { CardSection, Card, Button } from '../common';
+import {fetchAnimalApplicants} from '../../actions';
 
 class ListItem extends Component {
-onRowPress(){
-
-}
-
 	render (){
-		const {name, image, status} = this.props.animal;
+		const {name, image, status, identification } = this.props.animal;
 
 		return (
-			<TouchableWithoutFeedback
-				onPress={this.onRowPress.bind(this)}
-			>
+			<TouchableWithoutFeedback>
 				<Card>
 					<CardSection>
 						<View style = {styles.headerContentStyle}>
@@ -35,8 +31,8 @@ onRowPress(){
 							Details
 						</Button>
 
-						<Button>
-							Applicants
+						<Button onPress ={() => this.props.fetchAnimalApplicants({identification})}>
+							Applicants 
 						</Button>
 
 					</CardSection>
@@ -70,5 +66,4 @@ const styles = {
 		width: null
 	}
 };
-
-export default ListItem;
+export default connect(null, {fetchAnimalApplicants}) (ListItem);

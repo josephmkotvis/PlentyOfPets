@@ -35,3 +35,5 @@ export const PREFERENCES_FETCH_SUCCESS = 'preference_fetch_success';
 export const PREF_ANIMALS_FETCH_SUCCESS = 'pref_animals_fetch_success';
 export const PREFERENCES_FIRST_FETCH_SUCCESS = 'preferences_first_fetch_success';
 export const INTERESTED_BUYER_UPLOADED = 'interested_buyer_uploaded';
+
+export const ANIMAL_APPLICANTS_FETCH_SUCCESS = "animal_applications_fetch_success";

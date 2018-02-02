@@ -12,7 +12,7 @@ export const preferencesUpdate = ({prop, value}) => {
 		});
 	}
 }
-export const addInterestedBuyer = ({identification}) => {
+export const addInterestedBuyer = ({identification, compatability}) => {
 	const {currentUser} = firebase.auth();
 	return(dispatch)  =>{
 		firebase.database().ref(`/users/${currentUser.uid}/information`)

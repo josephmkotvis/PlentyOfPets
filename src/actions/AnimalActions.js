@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import _ from 'lodash';
 import { Actions } from 'react-native-router-flux';
 import { 
 	ANIMAL_UPDATE, 
@@ -6,7 +7,8 @@ import {
 	ANIMALS_FETCH_SUCCESS, 
 	ANIMALS_FETCH,
 	ANIMAL_SAVE_SUCCESS,
-	ANIMAL_REMOVE_SUCCESS
+	ANIMAL_REMOVE_SUCCESS,
+	ANIMAL_APPLICANTS_FETCH_SUCCESS
 	 } from './types';
 import RNFetchBlob from 'react-native-fetch-blob';
 
@@ -16,6 +18,33 @@ export const animalUpdate = ({prop, value}) => {
 		payload: {prop, value}
 	};
 };
+
+export const fetchAnimalApplicants = ({identification}) => {
+	const {currentUser} = firebase.auth();
+
+	return (dispatch) => {
+		let interestedBuyersArray = [];
+		firebase.database().ref(`/animals/${identification}/interestedBuyers`)
+			.on ('value', snapshot =>{
+				_.forEach( snapshot.val(), (buyer) => {
+					interestedBuyersArray.push(buyer);
+					console.log("interestedBuyersArray", interestedBuyersArray)
+					return interestedBuyersArray;
+				})
+							dispatch({
+				type: ANIMAL_APPLICANTS_FETCH_SUCCESS,
+				payload: interestedBuyersArray
+			});
+		Actions.viewAnimalApplicants();
+		})
+
+	}
+
+}
+
+export const removeApplicant =() => {
+
+}
 
 export const animalAdd = ({name, personality, type,breed,age,lifeExpectency,sex,weight,size,training,coatLength,health,neuteredState,microChippedStatus,status, livingCost, price, image, compatability}) => {
 	const {currentUser} = firebase.auth();
@@ -47,15 +76,15 @@ export const animalsFetch = () => {
   };
 };
 
-export const animalSave = ({ name, type,breed,age,lifeExpectency,sex,weight,size,training,coatLength,health,neuteredState,microChippedStatus,status, livingCost, price, image, uid}) => {
+export const animalSave = ({ name, type, personality,breed,age,lifeExpectency,sex,weight,size,training,coatLength,health,neuteredState,microChippedStatus,status, livingCost, price, image, uid}) => {
 	const {currentUser} = firebase.auth();
 
 	return (dispatch) => {
 		firebase.database().ref(`/users/${currentUser.uid}/animals/${uid}`)
-			.set({ name, type,breed,age,lifeExpectency,sex,weight,size,training,coatLength,health,neuteredState,microChippedStatus,status, livingCost, price, image })
+			.set({ name, type,breed, personality, age,lifeExpectency,sex,weight,size,training,coatLength,health,neuteredState,microChippedStatus,status, livingCost, price, image })
 				.then (() => {
 					firebase.database().ref(`/animals/${uid}/information`)
-						.set({ name, type,breed,age,lifeExpectency,sex,weight,size,training,coatLength,health,neuteredState,microChippedStatus,status, livingCost, price, image })
+						.set({ name, type, personality, breed,age,lifeExpectency,sex,weight,size,training,coatLength,health,neuteredState,microChippedStatus,status, livingCost, price, image })
 						.then(() => {
 							dispatch({ type: ANIMAL_SAVE_SUCCESS });
 							Actions.sellerAnimalList();

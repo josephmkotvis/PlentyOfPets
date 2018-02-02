@@ -14,8 +14,8 @@ class BuyerHome extends Component {
 onAccept(){
 	nextActiveCard = this.props.activeCard + 1;
 	this.props.preferencesUpdate({ prop: 'activeCard', value: nextActiveCard })
-	const {identification } = this.props.animals[this.props.activeCard].information
-	this.props.addInterestedBuyer({identification});
+	const {identification, compatability } = this.props.animals[this.props.activeCard].information
+	this.props.addInterestedBuyer({identification, compatability});
 }
 
 onDecline(){
@@ -24,8 +24,6 @@ onDecline(){
 }
 
 render(){
-	console.log("the whole prop", this.props)
-	console.log("The active card", this.props.activeCard)
 	return(
 		<ScrollView>
 			<AnimalDetail key = {this.props.animals[this.props.activeCard].uid} animal={this.props.animals[this.props.activeCard]} />

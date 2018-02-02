@@ -35,6 +35,7 @@ renderButton(){
  		currentAnimals, 
  		familySize, 
  		animalHistory,
+ 		phoneNumber,
  		uid
  	} = this.props;
 
@@ -48,6 +49,7 @@ renderButton(){
  		currentAnimals, 
  		familySize, 
  		animalHistory,
+ 		phoneNumber,
  		role: 'Buyer',
  		uid
  	});
@@ -58,6 +60,14 @@ renderButton(){
 			<View style = {{flex : 1}} >
 					<ScrollView>
 						<BasicAccountInfoForm {...this.props} />
+						<CardSection>
+							<Input
+								label ="Phone-Number:"
+								placeholder= "414-867-5309"
+								value = {this.props.phoneNumber}
+								onChangeText = {value => this.props.userUpdate({ prop: 'phoneNumber', value})}
+							/>
+						</CardSection>
 						<CardSection>
 							<Input
 								label ="Current Animals:"
@@ -103,7 +113,8 @@ const mapStateToProps = ({auth}) => {
  		role, 
  		currentAnimals, 
  		familySize, 
- 		animalHistory
+ 		animalHistory,
+ 		phoneNumber
 	} = auth;
 
 	return {
@@ -116,7 +127,8 @@ const mapStateToProps = ({auth}) => {
  		role, 
  		currentAnimals, 
  		familySize, 
- 		animalHistory
+ 		animalHistory,
+ 		phoneNumber
 
 	};
 };

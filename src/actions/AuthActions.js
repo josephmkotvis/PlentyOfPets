@@ -64,12 +64,12 @@ export const signUpUser = ({ email, password, confirmPassword}) => {
 	};
 };
 
-export const signUpBuyerInfo = ({ firstname, lastname,address, city, userState, zipcode, role, currentAnimals, familySize, animalHistory}) => {
+export const signUpBuyerInfo = ({ firstname, phoneNumber, lastname,address, city, userState, zipcode, role, currentAnimals, familySize, animalHistory}) => {
 	const {currentUser} =  firebase.auth();
-
+	const identification = currentUser.uid
 		return (dispatch) => {
 			firebase.database().ref(`/users/${currentUser.uid}/information/${currentUser.uid}`)
-				.set({ firstname, lastname,address, city, userState, zipcode, role, currentAnimals, familySize, animalHistory})
+				.set({ firstname, lastname, phoneNumber, address, city, userState, zipcode, role, currentAnimals, familySize, identification, animalHistory})
 					.then( user => signUpBuyerInfoSuccess(dispatch, user))
 						.catch(() => signUpBuyerInfoFail(dispatch));
 		};
@@ -99,12 +99,12 @@ export const updateSellerInfo = ({firstname, lastname,address, city, userState, 
 	};
 };
 
-export const updateBuyerInfo = ({firstname, lastname, address, city, userState, zipcode, currentAnimals, familySize, animalHistory, role, uid}) => {
+export const updateBuyerInfo = ({firstname, lastname, phoneNumber, address, city, userState, zipcode, currentAnimals, familySize, animalHistory, role, uid}) => {
 	const {currentUser} = firebase.auth();
-
+	const identification = currentUser.uid;
 	return (dispatch) => {
 		firebase.database().ref(`/users/${currentUser.uid}/information/${currentUser.uid}`)
-			.set({firstname, lastname, address, city, userState, zipcode, currentAnimals, familySize, role, animalHistory})
+			.set({firstname, lastname, phoneNumber, address, city, userState, zipcode, currentAnimals, familySize, role, animalHistory, identification})
 				.then(() => {
 					dispatch ({ type: USER_UPDATE_SUCCESS});
 					Actions.buyerAccountRouter();
