@@ -14,6 +14,7 @@ const INITIAL_STATE = {
 	livingCost : '',
 	health : '',
 	city: '',
+	activeCard: 0,
 	animals: {},
 
 };

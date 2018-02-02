@@ -162,7 +162,7 @@ const signUpBuyerInfoSuccess = (dispatch, user) =>{
 		type: BUYER_INFO_UPDATED_SUCCESS,
 		payload: user
 	}); 	
-	Actions.buyerPreferences();
+	Actions.firstBuyerPreferences();
 };
 
 const signUpBuyerInfoFail = (dispatch, user) => {

@@ -6,36 +6,38 @@ import { Actions } from 'react-native-router-flux';
 import{ CardSection, Button } from '../common';
 import AnimalDetail from './AnimalDetail';
 import ListItem from './ListItem';
-import { preferencesFetch, updatePreferences, buyerAnimalsFetch, zipCodeFetch  } from '../../actions';
+import { preferencesFetch, preferencesUpdate, buyerAnimalsFetch, zipCodeFetch  } from '../../actions';
 
 class BuyerHome extends Component {
-		state = { activeCard: 0};
+
 
 onAccept(){
-	this.props.favoriteAnimal();
-	var newCard = this.activeCard + 1;
-	this.setState({ activeCard: newCard}) 
+	nextActiveCard = this.props.activeCard + 1;
+	this.props.preferencesUpdate({ prop: 'activeCard', value: nextActiveCard })
 }
 
 onDecline(){
-	this.setState({ activeCard: (this.activeCard ++)})
+	nextActiveCard = this.props.activeCard + 1;
+	this.props.preferencesUpdate({ prop: 'activeCard', value: nextActiveCard })
 }
 showDetails(){
 	
 }
 
 render(){
+	console.log("the whole prop", this.props)
+	console.log("The active card", this.props.activeCard)
 	return(
 		<ScrollView>
-			<AnimalDetail key = {this.props.animals[this.state.activeCard].uid} animal={this.props.animals[this.state.activeCard]} />
+			<AnimalDetail key = {this.props.animals[this.props.activeCard].uid} animal={this.props.animals[this.props.activeCard]} />
 			<CardSection>
 				<Button
-					onPress= {this.showDetails()}
+					onPress= {this.onDecline.bind(this)}
 				>
 					Uninterested
 				</Button>
 				<Button
-					onPress= {this.showDetails()}
+					onPress= {this.showDetails.bind(this)}
 				>
 					Interested
 				</Button>
@@ -49,52 +51,52 @@ render(){
 			</CardSection>
 			<CardSection>
 				<Text>
-					Type: {this.props.animals[this.state.activeCard].information.type}
+					Type: {this.props.animals[this.props.activeCard].information.type}
 				</Text>
 			</CardSection>
 			<CardSection>
 				<Text>
-					 Breed: {this.props.animals[this.state.activeCard].information.breed}
+					 Breed: {this.props.animals[this.props.activeCard].information.breed}
 				</Text>
 			</CardSection>
 			<CardSection>
 				<Text>
-					Age: {this.props.animals[this.state.activeCard].information.age}
+					Age: {this.props.animals[this.props.activeCard].information.age}
 				</Text>
 			</CardSection>
 			<CardSection>
 				<Text>
-					Life Expectancy : {this.props.animals[this.state.activeCard].information.lifeExpectency}
+					Life Expectancy : {this.props.animals[this.props.activeCard].information.lifeExpectency}
 				</Text>
 			</CardSection>
 			<CardSection>
 				<Text>
-					Training : {this.props.animals[this.state.activeCard].information.training}
+					Training : {this.props.animals[this.props.activeCard].information.training}
 				</Text>
 			</CardSection>
 			<CardSection>
 				<Text>
-					Coat Length: {this.props.animals[this.state.activeCard].information.coatLength}
+					Coat Length: {this.props.animals[this.props.activeCard].information.coatLength}
 				</Text>
 			</CardSection>
 			<CardSection>
 				<Text>
-					Health: {this.props.animals[this.state.activeCard].information.health}
+					Health: {this.props.animals[this.props.activeCard].information.health}
 				</Text>
 			</CardSection>
 			<CardSection>
 				<Text>
-					Neutered Status : {this.props.animals[this.state.activeCard].information.neuteredState}
+					Neutered Status : {this.props.animals[this.props.activeCard].information.neuteredState}
 				</Text>
 			</CardSection>
 			<CardSection>
 				<Text>
-					Microchipped Status : {this.props.animals[this.state.activeCard].information.microChippedState}
+					Microchipped Status : {this.props.animals[this.props.activeCard].information.microChippedState}
 				</Text>
 			</CardSection>
 			<CardSection>
 				<Text>
-					Living Cost : {this.props.animals[this.state.activeCard].information.livingCost}
+					Living Cost : {this.props.animals[this.props.activeCard].information.livingCost}
 				</Text>
 			</CardSection>
 		</ScrollView>
@@ -130,10 +132,12 @@ const styles = {
 
 const mapStateToProps = (state) => {
 	const {  
-	animals
+	animals,
+	activeCard
 	} = state.buyer
 	return { 
-	animals
+	animals,
+	activeCard 	
 	};
 }
-export default connect(mapStateToProps, { buyerAnimalsFetch, updatePreferences, preferencesFetch, zipCodeFetch })(BuyerHome);
+export default connect(mapStateToProps, { buyerAnimalsFetch, preferencesUpdate, preferencesFetch, zipCodeFetch })(BuyerHome);

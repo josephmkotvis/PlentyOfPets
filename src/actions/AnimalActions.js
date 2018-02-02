@@ -56,7 +56,7 @@ export const animalSave = ({ name, type,breed,age,lifeExpectency,sex,weight,size
 				.then (() => {
 					firebase.database().ref(`/animals/${uid}/information`)
 						.set({ name, type,breed,age,lifeExpectency,sex,weight,size,training,coatLength,health,neuteredState,microChippedStatus,status, livingCost, price, image })
-						then(() => {
+						.then(() => {
 							dispatch({ type: ANIMAL_SAVE_SUCCESS });
 							Actions.sellerAnimalList();
 						});

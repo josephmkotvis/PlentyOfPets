@@ -2,10 +2,10 @@ import _ from 'lodash';
 import React, {Component } from 'react';
 import {connect} from 'react-redux';
 import { View, ScrollView, StyleSheet, Text, Picker } from 'react-native';
-import { updatePreferences, preferencesUpdate , preferencesFetch } from '../../actions';
+import { updateFirstPreferences, preferencesUpdate , preferencesFetch } from '../../actions';
 import { Card, CardSection, Button, Input } from '../common';
 
-class BuyerPreferences extends Component {
+class FirstBuyerPreferences extends Component {
 
 
 	renderButton(){
@@ -23,7 +23,7 @@ class BuyerPreferences extends Component {
 
 		const { type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city} = this.props;
 
-		this.props.updatePreferences({ 
+		this.props.updateFirstPreferences({ 
 			type  : type || 'Irrelevant',
 			breed : breed ||'Irrelevant',
 			lifeExpectency  : lifeExpectency ||'Irrelevant',
@@ -266,4 +266,4 @@ const mapStateToProps = (state) => {
 	};
 }
 
-export default connect( mapStateToProps , { updatePreferences, preferencesUpdate, preferencesFetch}) (BuyerPreferences);
+export default connect( mapStateToProps , { updateFirstPreferences, preferencesUpdate, preferencesFetch}) (FirstBuyerPreferences);

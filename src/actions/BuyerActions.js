@@ -118,6 +118,16 @@ export const buyerAnimalsFetch = ({type, breed, lifeExpectency, sex, size, train
 
 
 
+export const updateFirstPreferences = ({type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard}) => {
+	const {currentUser} = firebase.auth();
+
+	return(dispatch) => {
+		firebase.database().ref(`/users/${currentUser.uid}/preferences/${currentUser.uid}`)
+			.set({ type, breed, lifeExpectency, sex, size, training, coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard})
+			.then(user => updateFirstPreferencesSuccess( dispatch, user))
+		}
+}
+
 export const preferencesFirstFetch = () => {
 	const { currentUser } = firebase.auth();
 	return (dispatch) => {
@@ -128,12 +138,12 @@ export const preferencesFirstFetch = () => {
   	};
 }
 
-export const updatePreferences = ({type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city}) => {
+export const updatePreferences = ({type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard}) => {
 	const {currentUser} = firebase.auth();
 
 	return(dispatch) => {
 		firebase.database().ref(`/users/${currentUser.uid}/preferences/${currentUser.uid}`)
-			.set({ type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city})
+			.set({ type, breed, lifeExpectency, sex, size, training, coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard})
 			.then(user => updatePreferencesSucces( dispatch, user))
 		}
 }
@@ -152,4 +162,11 @@ const updatePreferencesSucces = (dispatch, user) => {
 		paylaod: user
 	});
 	Actions.buyerAccountRouter();
+}
+const updateFirstPreferencesSuccess = (dispatch, user) => {
+	dispatch({
+		type: PREFERENCE_UPDATE_SUCCESS,
+		paylaod: user
+	});
+	Actions.buyerRouteToHome();
 }

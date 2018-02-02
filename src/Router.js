@@ -17,6 +17,7 @@ import BuyerPreferences from './components/buyer/BuyerPreferences';
 import BuyerRouteToHome from './components/buyer/BuyerRouteToHome';
 import RoleRouter from './components/RoleRouter';
 import BuyerAnimalListFetcher from './components/buyer/BuyerAnimalListFetcher';
+import FirstBuyerPreferences from './components/buyer/FirstBuyerPreferences';
 
 const RouterComponent = () => {
 	return (
@@ -53,6 +54,7 @@ const RouterComponent = () => {
 				<Scene key = "buyerRouteToHome" component = {BuyerRouteToHome} title= "" />
 				<Scene key = "roleRouter" component = {RoleRouter} title ="" />
 				<Scene key = "buyerAnimalListFetcher" component = {BuyerAnimalListFetcher} title="" />
+				<Scene key = "firstBuyerPreferences" component = {FirstBuyerPreferences} title = "Create Preferences" />
 			</Scene>
 		</Router>
 	);
