@@ -1,4 +1,4 @@
-import { PREFERENCE_UPDATE, PREFERENCE_UPDATE_SUCCESS, PREF_ANIMALS_FETCH_SUCCESS, PREFERENCES_FETCH_SUCCESS, PREFERENCES_FIRST_FETCH_SUCCESS } from '../actions/types'
+import { PREFERENCE_UPDATE, PREFERENCE_UPDATE_SUCCESS, PREF_ANIMALS_FETCH_SUCCESS, PREFERENCES_FETCH_SUCCESS, PREFERENCES_FIRST_FETCH_SUCCESS, INTERESTED_BUYER_UPLOADED } from '../actions/types'
 
 const INITIAL_STATE = {
 
@@ -31,6 +31,8 @@ export default (state = INITIAL_STATE, action) => {
 			return {...state, animals: action.payload};
 		case PREFERENCES_FIRST_FETCH_SUCCESS:
 			return action.payload.val;
+		case INTERESTED_BUYER_UPLOADED:
+			return state;
 		default:
 			return state;
 	}

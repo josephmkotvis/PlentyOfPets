@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import{ CardSection, Button } from '../common';
 import AnimalDetail from './AnimalDetail';
 import ListItem from './ListItem';
-import { preferencesFetch, preferencesUpdate, buyerAnimalsFetch, zipCodeFetch  } from '../../actions';
+import { preferencesFetch, addInterestedBuyer, preferencesUpdate, buyerAnimalsFetch, zipCodeFetch  } from '../../actions';
 
 class BuyerHome extends Component {
 
@@ -14,14 +14,13 @@ class BuyerHome extends Component {
 onAccept(){
 	nextActiveCard = this.props.activeCard + 1;
 	this.props.preferencesUpdate({ prop: 'activeCard', value: nextActiveCard })
+	const {identification } = this.props.animals[this.props.activeCard].information
+	this.props.addInterestedBuyer({identification});
 }
 
 onDecline(){
 	nextActiveCard = this.props.activeCard + 1;
 	this.props.preferencesUpdate({ prop: 'activeCard', value: nextActiveCard })
-}
-showDetails(){
-	
 }
 
 render(){
@@ -37,7 +36,7 @@ render(){
 					Uninterested
 				</Button>
 				<Button
-					onPress= {this.showDetails.bind(this)}
+					onPress= {this.onAccept.bind(this)}
 				>
 					Interested
 				</Button>
@@ -91,7 +90,7 @@ render(){
 			</CardSection>
 			<CardSection>
 				<Text>
-					Microchipped Status : {this.props.animals[this.props.activeCard].information.microChippedState}
+					Microchipped Status : {this.props.animals[this.props.activeCard].information.microChippedStatus}
 				</Text>
 			</CardSection>
 			<CardSection>
@@ -140,4 +139,4 @@ const mapStateToProps = (state) => {
 	activeCard 	
 	};
 }
-export default connect(mapStateToProps, { buyerAnimalsFetch, preferencesUpdate, preferencesFetch, zipCodeFetch })(BuyerHome);
+export default connect(mapStateToProps, { addInterestedBuyer, buyerAnimalsFetch, preferencesUpdate, preferencesFetch, zipCodeFetch })(BuyerHome);

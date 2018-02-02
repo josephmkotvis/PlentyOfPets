@@ -24,7 +24,7 @@ export const animalAdd = ({name, type,breed,age,lifeExpectency,sex,weight,size,t
 	const identification = currentUser.uid + n;
 	return(dispatch) => {
 		firebase.database().ref(`users/${currentUser.uid}/animals/${identification}`)
-			.set({name, type, breed, age, lifeExpectency, sex, weight, size, training, coatLength, health, neuteredState, microChippedStatus, status, livingCost, price, image})
+			.set({name, type, breed, age, lifeExpectency, sex, weight, size, training, coatLength, health, neuteredState, microChippedStatus, status, livingCost, price, image,identification})
 				.then(() => {
 					firebase.database().ref(`animals/${identification}/information`)
 					.set({name, type, breed, age, lifeExpectency, sex, weight, size, training, coatLength, health, neuteredState, microChippedStatus, status, livingCost, price, image, identification, compatability})

@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import _ from 'lodash';
 import {Actions} from 'react-native-router-flux';
-import { PREFERENCE_UPDATE, PREFERENCE_UPDATE_SUCCESS, PREFERENCES_FETCH_SUCCESS, PREF_ANIMALS_FETCH_SUCCESS, ANIMALS_FETCH_SUCCESS, PREFERENCES_FIRST_FETCH_SUCCESS} from './types';
+import { PREFERENCE_UPDATE,INTERESTED_BUYER_UPLOADED, PREFERENCE_UPDATE_SUCCESS, PREFERENCES_FETCH_SUCCESS, PREF_ANIMALS_FETCH_SUCCESS, ANIMALS_FETCH_SUCCESS, PREFERENCES_FIRST_FETCH_SUCCESS} from './types';
 import RNFetchBlob from 'react-native-fetch-blob';
 
 export const preferencesUpdate = ({prop, value}) => {
@@ -12,7 +12,18 @@ export const preferencesUpdate = ({prop, value}) => {
 		});
 	}
 }
-
+export const addInterestedBuyer = ({identification}) => {
+	const {currentUser} = firebase.auth();
+	return(dispatch)  =>{
+		firebase.database().ref(`/users/${currentUser.uid}/information`)
+				.on ('value', snapshot =>{
+					_.forEach( snapshot.val(), (info) => {	
+						firebase.database().ref(`animals/${identification}/interestedBuyers/${currentUser.uid}`)
+							.set({info})
+					})
+				})
+	}
+}
 export const buyerAnimalsFetch = ({type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city}) => {
 	return(dispatch) => {
 		firebase.database().ref(`/animals`)
