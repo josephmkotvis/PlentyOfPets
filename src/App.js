@@ -22,6 +22,8 @@ class App extends Component {
   firebase.initializeApp(config);
 }
 	render() {
+	console.ignoredYellowBox = ['Possible Unhandled Promise Rejection'];
+	console.ignoredYellowBox = ['Possible'];
 	console.ignoredYellowBox = ['Setting a timer'];
 	const store= createStore(reducers, {}, applyMiddleware(ReduxThunk));		
 

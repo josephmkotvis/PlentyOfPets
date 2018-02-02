@@ -30,7 +30,7 @@ class BuyerAccountRouter extends Component {
 
 				<CardSection>
 				<Button
-					onPress = {() => Actions.buyerAccountEdit()}
+					onPress = {() => Actions.BuyerAccountRouter()}
 				>
 					Messages
 				</Button>

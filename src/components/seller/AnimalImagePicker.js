@@ -25,19 +25,20 @@ class AnimalImagePicker extends Component {
       }
   }
   onAccept(){
-    this.uploadImage(this.props.image, this.props.imageName);
+    this.uploadImage(this.props.image);
     this.setState({ showModal: false });
     Actions.pop( { type: 'reset'});
   }
 
-    uploadImage = (uri, imageName, mime = 'image/jpg') => {
+    uploadImage = (uri, mime = 'image/jpg') => {
     const Blob = RNFetchBlob.polyfill.Blob
     const fs = RNFetchBlob.fs
     window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
     window.Blob = Blob
       return new Promise((resolve, reject) => {
+          const sessionId = new Date().getTime()
           let uploadBlob = null
-          const imageRef = firebase.storage().ref('images').child(imageName)
+          const imageRef = firebase.storage().ref('images').child(sessionId)
           fs.readFile(uri, 'base64')  
           .then((data) => {
             return Blob.build(data, { type: `${mime};BASE64` })
@@ -63,13 +64,6 @@ class AnimalImagePicker extends Component {
     return (
       <View style= {{flex:1}}>
         <CameraRollPicker  maximum={1} callback={this.getSelectedImages.bind(this)} />
-        <CardSection>
-        <Input 
-          label=" Photo Name: "
-          placeholder= "Best Pet Photo"
-          value = {this.props.imageName}
-          onChangeText = {value => this.props.animalUpdate({ prop: 'imageName', value})}
-        />
           <Confirm
             visible={this.state.showModal}
             onAccept={()=> this.onAccept()}
@@ -77,9 +71,6 @@ class AnimalImagePicker extends Component {
           >
           Do you want to choose this photo?
           </Confirm>
-        </CardSection>
-
-
     </View>
     );
   }

@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import ListItem from './ListItem';
 import{ CardSection } from '../common'
 import {animalsFetch} from '../../actions';
+import { Icon } from 'react-native-elements/';
 import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 
 
@@ -34,6 +35,9 @@ class SellerAnimalList extends Component {
 			return <ListItem animal = {animal} />;
 
 		}
+		onMessagePress(){
+
+		}
 
 render(){
 		return(
@@ -55,20 +59,24 @@ render(){
       			<Tab
           			label="Account"
           			onPress= {(()=> Actions.sellerAccountEdit())}
+          			icon = {<Icon name="account-box" color = '#007aff' type= "account-box"/>}
        			/>
       			<Tab
           			label="Home"
           			onPress = {(()=> Actions.sellerAnimalList())}
+          			icon = {<Icon name="home" color = "#007aff" type="home"/>}
        			/>
        			 <Tab
           			label="Messages"
-          			onPress = {(() => Actions.messages())}
+          			onPress = {(() => this.onMessagePress.bind())}
+          			icon = {<Icon name ="message" color="#007aff" type="message" />}
        			/>
        			</BottomNavigation>
        		</View>
 		);
 	}
 }
+
 
 const mapStateToProps = state => {
 	const animals =_.map( state.animals, (val, uid) => {
