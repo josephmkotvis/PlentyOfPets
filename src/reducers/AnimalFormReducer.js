@@ -3,6 +3,7 @@ import { ANIMAL_UPDATE, ANIMAL_ADD, ANIMAL_SAVE_SUCCESS, ANIMAL_REMOVE_SUCCESS} 
 const INITIAL_STATE={
 	name: '',
 	type: '',
+	personality: '',
 	breed: '',
 	age: '',
 	lifeExpectency: '',

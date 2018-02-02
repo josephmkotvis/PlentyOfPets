@@ -10,6 +10,7 @@ class AnimalAdd extends Component {
   onButtonPress() {
     const {
       name,
+      personality,
       type,
       breed,
       age,
@@ -30,6 +31,7 @@ class AnimalAdd extends Component {
     } = this.props;
     this.props.animalAdd({
       name: name || "Unknown",
+      personality: personality || "Unknown",
       type: type || "Dog",
       breed: breed || "Unknown",
       age: age || "Unknown",

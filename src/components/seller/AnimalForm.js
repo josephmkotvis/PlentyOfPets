@@ -64,6 +64,15 @@ class AnimalForm extends Component {
 					/>
 				</CardSection>
 
+				<CardSection>
+					<Input
+						label= "Personality: "
+						placeholder= "Energetic"
+						value= {this.props.personality}
+						onChangeText= {value => this.props.animalUpdate({ prop: 'personality', value })}
+					/>
+				</CardSection>
+
 				<CardSection style = {styles.pickerCardSectionStyle}>
 					<Text style={styles.pickerTextStyle}>Life Expectancy: </Text>
 					<Picker
@@ -256,6 +265,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
 	const {
 		name,
+		personality,
 		type,
 		breed,
 		age,
@@ -275,6 +285,7 @@ const mapStateToProps = (state) => {
 	return {
 		name,
 		type,
+		personality,
 		breed,
 		age,
 		lifeExpectency,

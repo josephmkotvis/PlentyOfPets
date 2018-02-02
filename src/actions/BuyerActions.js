@@ -24,7 +24,7 @@ export const addInterestedBuyer = ({identification}) => {
 				})
 	}
 }
-export const buyerAnimalsFetch = ({type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city}) => {
+export const buyerAnimalsFetch = ({type, personality, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city}) => {
 	return(dispatch) => {
 		firebase.database().ref(`/animals`)
 			.on('value', snapshot => {
@@ -46,7 +46,7 @@ export const buyerAnimalsFetch = ({type, breed, lifeExpectency, sex, size, train
 							var neuteredStatusCompatability = 25;
 							var healthCompatability = 20;
 							var livingCostCompatability = 20;
-							var compatabilityMax = (50 +breedCompatability + lifeExpectencyCompatability + sexCompatability + sizeCompatability + trainingCompatability + coatLengthCompatability + microChippedStatusCompatability + neuteredStatusCompatability + healthCompatability +livingCostCompatability);
+							var compatabilityMax = (50 + breedCompatability + lifeExpectencyCompatability + sexCompatability + sizeCompatability + trainingCompatability + coatLengthCompatability + microChippedStatusCompatability + neuteredStatusCompatability + healthCompatability +livingCostCompatability);
 							
 
 							if(value.information.breed == breed)
@@ -129,12 +129,12 @@ export const buyerAnimalsFetch = ({type, breed, lifeExpectency, sex, size, train
 
 
 
-export const updateFirstPreferences = ({type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard}) => {
+export const updateFirstPreferences = ({type, breed, personality,lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard}) => {
 	const {currentUser} = firebase.auth();
 
 	return(dispatch) => {
 		firebase.database().ref(`/users/${currentUser.uid}/preferences/${currentUser.uid}`)
-			.set({ type, breed, lifeExpectency, sex, size, training, coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard})
+			.set({ type, breed, lifeExpectency, sex, size, personality, training, coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard})
 			.then(user => updateFirstPreferencesSuccess( dispatch, user))
 		}
 }
@@ -149,12 +149,12 @@ export const preferencesFirstFetch = () => {
   	};
 }
 
-export const updatePreferences = ({type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard}) => {
+export const updatePreferences = ({type, breed, personality, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard}) => {
 	const {currentUser} = firebase.auth();
 
 	return(dispatch) => {
 		firebase.database().ref(`/users/${currentUser.uid}/preferences/${currentUser.uid}`)
-			.set({ type, breed, lifeExpectency, sex, size, training, coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard})
+			.set({ type, breed, personality, lifeExpectency, sex, size, training, coatLength, neuteredStatus, microChippedStatus, livingCost, health, city, activeCard})
 			.then(user => updatePreferencesSucces( dispatch, user))
 		}
 }

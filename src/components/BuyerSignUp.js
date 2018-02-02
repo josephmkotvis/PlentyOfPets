@@ -11,7 +11,7 @@ class BuyerSignUp extends Component {
 
 	onButtonPress (){
 	const {firstname,  lastname, address,  city,  userState,  zipcode,  role, currentAnimals, familySize, animalHistory} = this.props;
-	this.props.signUpBuyerInfo({ firstname,  lastname, address,  city,  userState,  zipcode,  role, currentAnimals, familySize, animalHistory});
+	this.props.signUpBuyerInfo({ firstname,  lastname, address,  city,  userState,  zipcode,  role, currentAnimals, familySize, animalHistory, rating: 0});
 	}
 
 	renderButton(){

@@ -21,7 +21,7 @@ class FirstBuyerPreferences extends Component {
 
 	onButtonPress(){
 
-		const { type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city} = this.props;
+		const { type, personality, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city} = this.props;
 
 		this.props.updateFirstPreferences({ 
 			type  : type || 'Irrelevant',
@@ -36,6 +36,7 @@ class FirstBuyerPreferences extends Component {
 			livingCost : livingCost || 'Irrelevant',
 			health : health || 'Irrelevant',
 			city: city || 'Irrelevant',
+			personality: personality || "Irrelevant",
 			activeCard: 0
 		});
 	}
@@ -70,7 +71,14 @@ class FirstBuyerPreferences extends Component {
 							onChangeText= {value => this.props.preferencesUpdate({ prop: 'breed', value })}
 						/>
 					</CardSection>
-
+					<CardSection>
+						<Input
+							label= "Personality: "
+							placeholder= "Irrelevant"
+							value= {this.props.personality}
+							onChangeText= {value => this.props.preferencesUpdate({ prop: 'personality', value })}
+						/>
+					</CardSection>
 					<CardSection style = {styles.pickerCardSectionStyle}>
 						<Text style={styles.pickerTextStyle}>Life Expectancy: </Text>
 						<Picker
@@ -241,6 +249,7 @@ const mapStateToProps = (state) => {
 	breed, 
 	lifeExpectency, 
 	sex, 
+	personality,
 	size, 
 	training,  
 	coatLength, 
@@ -253,6 +262,7 @@ const mapStateToProps = (state) => {
 	return { 
 	type, 
 	breed, 
+	personality,
 	lifeExpectency, 
 	sex, 
 	size, 

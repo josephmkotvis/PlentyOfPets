@@ -17,17 +17,17 @@ export const animalUpdate = ({prop, value}) => {
 	};
 };
 
-export const animalAdd = ({name, type,breed,age,lifeExpectency,sex,weight,size,training,coatLength,health,neuteredState,microChippedStatus,status, livingCost, price, image, compatability}) => {
+export const animalAdd = ({name, personality, type,breed,age,lifeExpectency,sex,weight,size,training,coatLength,health,neuteredState,microChippedStatus,status, livingCost, price, image, compatability}) => {
 	const {currentUser} = firebase.auth();
 	var d = new Date();
 	var n = d.getTime();
 	const identification = currentUser.uid + n;
 	return(dispatch) => {
 		firebase.database().ref(`users/${currentUser.uid}/animals/${identification}`)
-			.set({name, type, breed, age, lifeExpectency, sex, weight, size, training, coatLength, health, neuteredState, microChippedStatus, status, livingCost, price, image,identification})
+			.set({name, personality, type, breed, age, lifeExpectency, sex, weight, size, training, coatLength, health, neuteredState, microChippedStatus, status, livingCost, price, image,identification})
 				.then(() => {
 					firebase.database().ref(`animals/${identification}/information`)
-					.set({name, type, breed, age, lifeExpectency, sex, weight, size, training, coatLength, health, neuteredState, microChippedStatus, status, livingCost, price, image, identification, compatability})
+					.set({name, personality, type, breed, age, lifeExpectency, sex, weight, size, training, coatLength, health, neuteredState, microChippedStatus, status, livingCost, price, image, identification, compatability})
 						.then(()=> {
 							dispatch({ type: ANIMAL_ADD});
 							Actions.sellerAnimalList();
