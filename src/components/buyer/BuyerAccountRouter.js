@@ -20,7 +20,7 @@ class BuyerAccountRouter extends Component {
 				</Button>
 				</CardSection>
 
-				<CardSection>
+	 				<CardSection>
 				<Button
 					onPress = {() => Actions.buyerPreferences()}
 				>
@@ -37,9 +37,9 @@ class BuyerAccountRouter extends Component {
 				</CardSection>
 				<CardSection>
 				<Button
-					onPress = {() => Actions.buyerHome()}
+					onPress = {() => Actions.buyerRouteToHome()}
 				>
-					Return
+					Home
 				</Button>
 				</CardSection>
 

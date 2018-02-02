@@ -8,6 +8,7 @@ import BasicAccountInfoForm from './BasicAccountInfoForm';
 
 class BuyerAccountEdit extends Component {
 	componentWillMount(){
+
 		this.props.accountInfoFetch();
 	}
 	
@@ -47,6 +48,7 @@ renderButton(){
  		currentAnimals, 
  		familySize, 
  		animalHistory,
+ 		role: 'Buyer',
  		uid
  	});
 	}

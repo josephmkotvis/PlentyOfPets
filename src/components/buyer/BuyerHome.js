@@ -3,26 +3,62 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListView, Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import{ CardSection } from '../common'
-import {} from '../../actions';
-import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
+import{ CardSection, Button } from '../common';
+import AnimalDetail from './AnimalDetail';
+import ListItem from './ListItem';
+import { preferencesFetch, buyerAnimalsFetch, zipCodeFetch  } from '../../actions';
 
 class BuyerHome extends Component {
+		state = { activeCard: 0};
+
+onAccept(){
+	this.props.favoriteAnimal();
+	var newCard = this.activeCard + 1;
+	this.setState({ activeCard: newCard}) 
+}
+
+onDecline(){
+	this.setState({ activeCard: (this.activeCard ++)})
+}
+showDetails(){
+	
+}
+
 render(){
 	return(
 		<View>
-		<Text> THE CUTEST DOG WILL BE HERE FOR YOu </Text>
+			<AnimalDetail key = {this.props.animals[this.state.activeCard].uid} animal={this.props.animals[this.state.activeCard]} />
+			<CardSection>
+				<Button
+					onPress= {this.showDetails()}
+				>
+					Details
+				</Button>
+			</CardSection>
+			<CardSection>
+				<Button
+					onPress= {this.showDetails()}
+				>
+					Uninterested
+				</Button>
+				<Button
+					onPress= {this.showDetails()}
+				>
+					Interested
+				</Button>
+			</CardSection>
+
 		</View>
-
 		);
-
 	}
-
 }
 
-const mapStateToProps = state => {
-	const {} = this.props;
-	return {};
+const mapStateToProps = (state) => {
+	const {  
+	animals
+	} = state.buyer
+	return { 
+	animals
+	};
 }
-
-export default connect(null, {})(BuyerHome);
+export default connect(mapStateToProps, { buyerAnimalsFetch, preferencesFetch, zipCodeFetch })(BuyerHome);

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, {Component } from 'react';
 import {connect} from 'react-redux';
 import { View, ScrollView } from 'react-native';
-import { userUpdate, signUpSellerInfo,accountInfoFetch } from '../actions';
+import { userUpdate, signUpSellerInfo,accountInfoFetch,updateSellerInfo } from '../actions';
 import { Card, CardSection, Button, Input } from './common';
 import BasicAccountInfoForm from './BasicAccountInfoForm';
 
@@ -26,7 +26,7 @@ class SellerAccountEdit extends Component {
 
 	onButtonPress (){
 		const {firstname, lastname, address, city, userState, zipcode} = this.props;
-		this.props.updateSellerInfo({firstname, lastname,address, city, userState, zipcode});
+		this.props.updateSellerInfo({firstname, lastname,address, city, userState, zipcode, role: "Seller"});
 	}
 
 
@@ -72,4 +72,4 @@ const mapStateToProps = ({auth}) => {
 	};
 };
 
-export default connect( mapStateToProps, { userUpdate, signUpSellerInfo, accountInfoFetch })(SellerAccountEdit)
+export default connect( mapStateToProps, {updateSellerInfo, userUpdate, signUpSellerInfo, accountInfoFetch })(SellerAccountEdit)

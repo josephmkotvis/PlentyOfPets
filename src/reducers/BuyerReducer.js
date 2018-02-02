@@ -1,4 +1,4 @@
-import { PREFERENCE_UPDATE, PREFERENCE_UPDATE_SUCCESS, PREFERENCES_FETCH_SUCCESS } from '../actions/types'
+import { PREFERENCE_UPDATE, PREFERENCE_UPDATE_SUCCESS, PREF_ANIMALS_FETCH_SUCCESS, PREFERENCES_FETCH_SUCCESS } from '../actions/types'
 
 const INITIAL_STATE = {
 
@@ -12,7 +12,9 @@ const INITIAL_STATE = {
 	neuteredStatus : '',
 	microChippedStatus : '',
 	livingCost : '',
-	health : ''
+	health : '',
+	city: '',
+	animals: {}
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -23,7 +25,9 @@ export default (state = INITIAL_STATE, action) => {
 			return {...state, ...INITIAL_STATE, user: action.payload};
 		case  PREFERENCES_FETCH_SUCCESS:
 			return action.payload.val;
+		case PREF_ANIMALS_FETCH_SUCCESS:
+			return {...state, animals: action.payload};
 		default:
 			return state;
 	}
-};
+};	

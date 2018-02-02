@@ -186,15 +186,6 @@ class AnimalForm extends Component {
 					</Picker>
 				</CardSection>
 
-				<CardSection>
-					<Input
-						label= "Adoption Fee/Price: "
-						placeholder= "120$"
-						value= {this.props.price}
-						onChangeText= {value => this.props.animalUpdate({ prop: 'price', value })}
-					/>
-				</CardSection>
-
 				<CardSection style = {styles.pickerCardSectionStyle}>
 					<Text style={styles.pickerTextStyle}>Status: </Text>
 					<Picker
@@ -209,6 +200,24 @@ class AnimalForm extends Component {
 						<Picker.Item label="Adopted" value = "Adopter" />
 						<Picker.Item label="Sold" value= "Sold" />
 					</Picker>
+				</CardSection>
+				
+				<CardSection>
+					<Input
+						label= "Adoption Fee/Price $: "
+						placeholder= "120"
+						value= {this.props.price}
+						onChangeText= {value => this.props.animalUpdate({ prop: 'price', value })}
+					/>
+				</CardSection>
+
+				<CardSection>
+					<Input
+						label= "City: "
+						placeholder= "Milwaukee"
+						value= {this.props.city}
+						onChangeText= {value => this.props.animalUpdate({ prop: 'city', value })}
+					/>
 				</CardSection>
 
 				<CardSection>

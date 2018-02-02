@@ -22,7 +22,7 @@ class BuyerPreferences extends Component {
 	}
 
 	onButtonPress(){
-		const { type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health} = this.props;
+		const { type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city} = this.props;
 
 		this.props.updatePreferences({ 
 			type  : type || 'Irrelevant',
@@ -35,7 +35,8 @@ class BuyerPreferences extends Component {
 			neuteredStatus : neuteredStatus || 'Irrelevant',
 			microChippedStatus : microChippedStatus ||'Irrelevant',
 			livingCost : livingCost || 'Irrelevant',
-			health : health || 'Irrelevant' 
+			health : health || 'Irrelevant',
+			city: city || 'Irrelevant', 
 		});
 	}
 
@@ -195,6 +196,14 @@ class BuyerPreferences extends Component {
 							<Picker.Item label="Needs Care" value ="Needs Care" />
 						</Picker>
 					</CardSection>
+					<CardSection>
+						<Input 
+							label = "City: "
+							placeholder= "Irrelevant"
+							value= {this.props.city}
+							onChangeText = { value => this.props.preferencesUpdate({ prop: 'city', value })}
+						/>
+					</CardSection>
 				</ScrollView>
 
 				<CardSection>
@@ -238,7 +247,8 @@ const mapStateToProps = (state) => {
 	neuteredStatus,
 	microChippedStatus, 
 	livingCost, 
-	health
+	health,
+	city
 	} = state.buyer
 	return { 
 	type, 
@@ -251,7 +261,8 @@ const mapStateToProps = (state) => {
 	neuteredStatus,
 	microChippedStatus, 
 	livingCost, 
-	health
+	health,
+	city
 	};
 }
 

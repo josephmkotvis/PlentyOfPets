@@ -80,18 +80,18 @@ export const signUpSellerInfo = ({ firstname, lastname,address, city, userState,
 
 	return (dispatch) => {
 		firebase.database().ref(`/users/${currentUser.uid}/information/${currentUser.uid}`)
-			.push({ firstname, lastname,address, city, userState, zipcode, role})
+			.set({ firstname, lastname,address, city, userState, zipcode, role})
 				.then( user => signUpSellerInfoSuccess(dispatch, user))
 					.catch(() => signUpSellerInfoFail(dispatch));
 	};
 };
 
-export const updateSellerInfo = ({firstname, lastname,address, city, userState, zipcode, uid}) => {
+export const updateSellerInfo = ({firstname, lastname,address, city, userState, zipcode, role, uid}) => {
 	const {currentUser} = firebase.auth();
 
 	return (dispatch) => {
 		firebase.database().ref(`/users/${currentUser.uid}/information/${currentUser.uid}`)
-			.set({firstname, lastname,address, city, userState, zipcode})
+			.set({firstname, lastname,address, city, userState, role, zipcode})
 				.then(() => {
 					dispatch ({ type: USER_UPDATE_SUCCESS});
 					Actions.sellerAnimalList();
@@ -99,12 +99,12 @@ export const updateSellerInfo = ({firstname, lastname,address, city, userState, 
 	};
 };
 
-export const updateBuyerInfo = ({firstname, lastname, address, city, userState, zipcode, currentAnimals, familySize, animalHistory, uid}) => {
+export const updateBuyerInfo = ({firstname, lastname, address, city, userState, zipcode, currentAnimals, familySize, animalHistory, role, uid}) => {
 	const {currentUser} = firebase.auth();
 
 	return (dispatch) => {
 		firebase.database().ref(`/users/${currentUser.uid}/information/${currentUser.uid}`)
-			.set({firstname, lastname, address, city, userState, zipcode, currentAnimals, familySize, animalHistory})
+			.set({firstname, lastname, address, city, userState, zipcode, currentAnimals, familySize, role, animalHistory})
 				.then(() => {
 					dispatch ({ type: USER_UPDATE_SUCCESS});
 					Actions.buyerAccountRouter();
@@ -116,10 +116,27 @@ export const loginUser= ({ email, password }) => {
 	return (dispatch) => {
 		dispatch({ type: LOGIN_USER });
 		firebase.auth().signInWithEmailAndPassword(email, password )
-			.then(user => loginUserSuccess(dispatch, user))
-				.catch(() => loginUserFail(dispatch));
-	};
+				.then(user => loginUserSuccess(dispatch, user))
+					.catch(() => loginUserFail(dispatch));
+	};	
 };
+
+export const checkRole = () => {
+const {currentUser} = firebase.auth();
+	return(dispatch) => {
+					firebase.database().ref(`/users/${currentUser.uid}/information/${currentUser.uid}`)
+							.on ('value', snapshot =>{
+								_.forEach( snapshot.val(), (val) => {
+									if ( snapshot.val().role == "Buyer"){
+		 								Actions.buyerRouteToHome();
+									}
+									else if (snapshot.val().role == "Seller"){
+										Actions.sellerAnimalList();
+									}
+								})
+							})
+			}
+}
 
 export const beginSignUp = () => {
 	return( dispatch) => 
@@ -145,7 +162,7 @@ const signUpBuyerInfoSuccess = (dispatch, user) =>{
 		type: BUYER_INFO_UPDATED_SUCCESS,
 		payload: user
 	}); 	
-	Actions.buyerHome();
+	Actions.buyerPreferences();
 };
 
 const signUpBuyerInfoFail = (dispatch, user) => {
@@ -185,12 +202,10 @@ const loginUserFail = (dispatch) => {
 };
 
 const loginUserSuccess = (dispatch, user) => {
-	console.log("comoooon")
   dispatch({
     type: LOGIN_USER_SUCCESS,
     payload: user
   });
-  console.log("why wont you go")
-  Actions.buyerHome();
-  console.log("shouldve gone")
+
+Actions.roleRouter();
 };

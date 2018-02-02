@@ -34,7 +34,8 @@ onButtonPress(){
 		status, 
 		livingCost,
 		price, 
-		image
+		image,
+		city
 	} = this.props;
 
 	this.props.animalSave({ 
@@ -54,7 +55,8 @@ onButtonPress(){
 		status, 
 		livingCost, 
 		price, 
-		image,  
+		image, 
+		city ,
 		uid: this.props.animal.uid
 	});
 }
@@ -114,7 +116,8 @@ const mapStateToProps = (state) => {
 		status, 
 		livingCost, 
 		price, 
-		image 
+		image,
+		city
 	} = state.animalForm;
 
 	return {
@@ -134,7 +137,8 @@ const mapStateToProps = (state) => {
 		status, 
 		livingCost, 
 		price, 
-		image
+		image,
+		city
 	};
 };
 
