@@ -36,7 +36,7 @@ const {
 			<CardSection>
 				<View style = {headerContentStyle}>
 					<Text style = {headerTextStyle} > 
-						{compatability} %
+						{compatability} % Compatability
 					</Text>
 				</View>
 			</CardSection>

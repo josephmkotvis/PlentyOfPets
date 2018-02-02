@@ -33,3 +33,4 @@ export const PREFERENCE_UPDATE = 'preference_update';
 export const PREFERENCE_UPDATE_SUCCESS = 'preference_update_success';
 export const PREFERENCES_FETCH_SUCCESS = 'preference_fetch_success';
 export const PREF_ANIMALS_FETCH_SUCCESS = 'pref_animals_fetch_success';
+export const PREFERENCES_FIRST_FETCH_SUCCESS = 'preferences_first_fetch_success';

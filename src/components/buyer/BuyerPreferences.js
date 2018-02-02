@@ -6,9 +6,7 @@ import { updatePreferences, preferencesUpdate , preferencesFetch } from '../../a
 import { Card, CardSection, Button, Input } from '../common';
 
 class BuyerPreferences extends Component {
-	componentWillMount(){
-		this.props.preferencesFetch();
-	}
+
 
 	renderButton(){
 		if (this.props.loading){
@@ -22,7 +20,7 @@ class BuyerPreferences extends Component {
 	}
 
 	onButtonPress(){
-		const { type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city} = this.props;
+		const { type, breed, lifeExpectency, sex, size, training,  coatLength, neuteredStatus, microChippedStatus, livingCost, health, city} = this.state;
 
 		this.props.updatePreferences({ 
 			type  : type || 'Irrelevant',
@@ -36,7 +34,7 @@ class BuyerPreferences extends Component {
 			microChippedStatus : microChippedStatus ||'Irrelevant',
 			livingCost : livingCost || 'Irrelevant',
 			health : health || 'Irrelevant',
-			city: city || 'Irrelevant', 
+			city: city || 'Irrelevant' 
 		});
 	}
 

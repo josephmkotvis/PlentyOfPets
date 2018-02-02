@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, View, Modal } from 'react-native';
-import{ CardSection, Button } from '../common';
+import{ CardSection, Button, Card } from '../common';
 
-const DetailsModal = ( { children, visible, onAccept, onDecline }) => {
+const Confirm = ( { children, visible, onAccept, onDecline }) => {
 	const { containerStyle, textStyle, cardSectionStyle} = styles;
 
 	return (
@@ -20,7 +20,8 @@ const DetailsModal = ( { children, visible, onAccept, onDecline }) => {
 					</CardSection>
 
 					<CardSection>
-						<Button onPress={onAccept}> Return </Button>
+						<Button onPress={onAccept}>Yes</Button>
+						<Button onPress={onDecline}>No</Button>
 					</CardSection>
 				</View>
 			</Modal>
@@ -46,4 +47,4 @@ const styles = {
 };
 
 
-export {DetailsModal} ;
+export default {Confirm} ;

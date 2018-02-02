@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import _ from 'lodash';
 import {Actions} from 'react-native-router-flux';
-import { PREFERENCE_UPDATE, PREFERENCE_UPDATE_SUCCESS, PREFERENCES_FETCH_SUCCESS, PREF_ANIMALS_FETCH_SUCCESS, ANIMALS_FETCH_SUCCESS} from './types';
+import { PREFERENCE_UPDATE, PREFERENCE_UPDATE_SUCCESS, PREFERENCES_FETCH_SUCCESS, PREF_ANIMALS_FETCH_SUCCESS, ANIMALS_FETCH_SUCCESS, PREFERENCES_FIRST_FETCH_SUCCESS} from './types';
 import RNFetchBlob from 'react-native-fetch-blob';
 
 export const preferencesUpdate = ({prop, value}) => {
@@ -24,7 +24,7 @@ export const buyerAnimalsFetch = ({type, breed, lifeExpectency, sex, size, train
 				_.forEach( animals , (value) => {
 					if(value.information.city == city){
 						if (type == "Irrelevant" || value.information.type == type) {
-							var compatability = 0;
+							var compatability = 50;
 							var breedCompatability = 50;
 							var lifeExpectencyCompatability = 10;
 							var sexCompatability = 20;
@@ -35,7 +35,9 @@ export const buyerAnimalsFetch = ({type, breed, lifeExpectency, sex, size, train
 							var neuteredStatusCompatability = 25;
 							var healthCompatability = 20;
 							var livingCostCompatability = 20;
-							var compatabilityMax = (breedCompatability + lifeExpectencyCompatability + sexCompatability + sizeCompatability + trainingCompatability + coatLengthCompatability + microChippedStatusCompatability + neuteredStatusCompatability + healthCompatability +livingCostCompatability);
+							var compatabilityMax = (50 +breedCompatability + lifeExpectencyCompatability + sexCompatability + sizeCompatability + trainingCompatability + coatLengthCompatability + microChippedStatusCompatability + neuteredStatusCompatability + healthCompatability +livingCostCompatability);
+							
+
 							if(value.information.breed == breed)
 							{
 								compatability += breedCompatability;
@@ -97,28 +99,24 @@ export const buyerAnimalsFetch = ({type, breed, lifeExpectency, sex, size, train
 							if (health == "Irrelevant"){
 								compatabilityMax -= healthCompatability;
 							}
-							finalCompatability = (compatability/compatabilityMax) * 100
-							value.information.compatability = finalCompatability;
+							
+							finalCompatability = (compatability/compatabilityMax) * 100;
+
+
+							finalCompatabilityString = finalCompatability.toString();
+							value.information.compatability = finalCompatabilityString;
 							animalarray.push(value);	
 						}
 					}
 			});
+
       			dispatch({ type: PREF_ANIMALS_FETCH_SUCCESS, payload: animalarray});
       			Actions.buyerHome();
   			});
 		};
 	};
 
-export const preferencesFetch = () => {
-	const { currentUser } = firebase.auth();
 
-	return (dispatch) => {
-		firebase.database().ref(`/users/${currentUser.uid}/preferences`)
-	      .on('value', snapshot => { 
-	      		 _.forEach( snapshot.val(), (val ) => fetchPreferencesSuccess( dispatch, val));
-		});
-  	};
-}
 
 export const preferencesFirstFetch = () => {
 	const { currentUser } = firebase.auth();
@@ -139,17 +137,11 @@ export const updatePreferences = ({type, breed, lifeExpectency, sex, size, train
 			.then(user => updatePreferencesSucces( dispatch, user))
 		}
 }
-const fetchPreferencesSuccess = (dispatch, val ) => {
-	console.log("Incorrect")
-	dispatch({ 
-		type: PREFERENCES_FETCH_SUCCESS, 
-		payload: {val} 
-	});
-}
+
 const fetchFirstPreferencesSuccess = (dispatch, val ) => {
 	console.log("Correct")
 	dispatch({ 
-		type: PREFERENCES_FETCH_SUCCESS, 
+		type: PREFERENCES_FIRST_FETCH_SUCCESS, 
 		payload: {val} 
 	});	
 	Actions.buyerAnimalListFetcher();
