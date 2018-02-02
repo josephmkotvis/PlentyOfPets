@@ -31,6 +31,9 @@ onText(){
 onMessage(){
 
 }
+onRemove(){
+
+}
 
 
 	render (){
@@ -53,10 +56,12 @@ onMessage(){
 						>
 						Contact
 						</Button>
-						<Button onPress = {this.onContactPress.bind(this)}
-						>
-						Send Location
-						</Button>
+						<TouchableOpacity
+						 	onPress = {this.onRemove.bind(this)}
+						 	style = {buttonStyle}
+						 >
+						<Text style = {textStyle}> Remove </Text>
+						</TouchableOpacity>
 					</CardSection>
 					<Modal
 						visible={this.state.showDetailsModal}
